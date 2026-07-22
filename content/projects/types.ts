@@ -81,6 +81,10 @@ export interface Project {
   lessons?: string[];
   futureImprovements?: string[];
 
+  // Short, first-person design annotations — Sean's decisions & voice, shown as
+  // callouts on the project's interface.
+  designNotes?: string[];
+
   // Media (rendered via mockup components; posters optional)
   heroImage?: string;
   gallery?: string[];

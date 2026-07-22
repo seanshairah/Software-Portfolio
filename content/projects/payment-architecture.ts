@@ -139,4 +139,9 @@ export const paymentArchitecture: Project = {
     "Real-time anomaly detection",
     "Self-serve dispute and refund flows",
   ],
+  designNotes: [
+    "The happy path is the easy 10%. This architecture is designed around the timeout.",
+    "Reconciliation isn't a monthly spreadsheet — it's a continuous part of being correct.",
+    "One idempotency key means a double-click is a non-event, not a double charge.",
+  ],
 };

@@ -36,13 +36,25 @@ export function BrandMark({
         strokeLinecap="round"
         className="text-foreground/60"
       />
-      <circle cx="3" cy="16" r="1.6" fill="var(--accent)" />
+      {/* Left node slides toward the system on wordmark hover — a signal
+          entering. The right node then emerges as the resolved product. */}
+      <circle
+        cx="3"
+        cy="16"
+        r="1.6"
+        fill="var(--accent)"
+        className="transition-transform duration-500 ease-out-expo group-hover/wordmark:translate-x-[5px]"
+      />
       <circle
         cx="29"
         cy="16"
         r="1.6"
         fill="var(--accent)"
-        className={animated ? "animate-[system-pulse_2.4s_ease-in-out_infinite]" : ""}
+        className={cn(
+          "transition-transform duration-500 ease-out-expo group-hover/wordmark:scale-150",
+          animated && "animate-[system-pulse_2.4s_ease-in-out_infinite]",
+        )}
+        style={{ transformOrigin: "29px 16px" }}
       />
     </svg>
   );
@@ -57,7 +69,7 @@ export function Wordmark({
   compact?: boolean;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
+    <span className={cn("group/wordmark inline-flex items-center gap-2.5", className)}>
       <BrandMark />
       {!compact && (
         <span className="text-[0.95rem] font-medium tracking-tight text-foreground">

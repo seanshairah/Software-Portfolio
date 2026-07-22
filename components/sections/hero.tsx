@@ -105,8 +105,8 @@ export function Hero() {
               as="h1"
               trigger="mount"
               delay={0.15}
-              lines={["I design the systems", "behind intelligent", "digital products."]}
-              className="text-balance text-[clamp(2.5rem,6.4vw,5rem)] font-medium leading-[0.98] tracking-[-0.03em] text-foreground"
+              lines={["I design the systems", "behind products people", "actually enjoy using."]}
+              className="text-balance text-[clamp(2.5rem,6.6vw,5.25rem)] font-medium leading-[0.96] tracking-[-0.035em] text-foreground"
             />
 
             <motion.p
@@ -118,10 +118,22 @@ export function Hero() {
               {profile.hero.supporting}
             </motion.p>
 
+            <motion.p
+              initial={reduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: 0.68 }}
+              className="mt-5 flex items-center gap-2 font-mono text-xs text-faint"
+            >
+              <span aria-hidden className="text-accent">
+                {"//"}
+              </span>
+              {profile.hero.personalityLine}
+            </motion.p>
+
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.62, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.8, delay: 0.78, ease: [0.16, 1, 0.3, 1] }}
               className="mt-9 flex flex-wrap items-center gap-3"
             >
               <ButtonLink href={profile.hero.primaryCta.href} size="lg" withArrow data-cursor="Work">

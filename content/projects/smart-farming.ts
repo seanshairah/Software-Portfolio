@@ -131,4 +131,9 @@ export const smartFarming: Project = {
     "Input and cost tracking",
     "Cooperative-level benchmarking",
   ],
+  designNotes: [
+    "The map is the product, not a feature tab. Everything hangs off the field.",
+    "Satellite indices became a simple health colour. Farmers need answers, not NDVI numbers.",
+    "Designed for sunlight, one hand and a weak signal — because that's where it's opened.",
+  ],
 };

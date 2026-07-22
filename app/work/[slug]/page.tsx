@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectMockup } from "@/components/mockups";
+import { DesignNotes } from "@/components/portfolio/design-notes";
 import { WorkflowDiagram } from "@/components/diagrams/workflow-diagram";
 import { ArchitectureDiagram } from "@/components/diagrams/architecture-diagram";
 import { ContactCta } from "@/components/sections/contact-cta";
@@ -69,6 +70,13 @@ export default async function CaseStudyPage({
             <ProjectMockup preset={project.mockup} />
           </div>
         </Reveal>
+        {project.designNotes && (
+          <DesignNotes
+            notes={project.designNotes}
+            accent={project.accent}
+            className="mt-8 grid grid-cols-1 gap-x-10 sm:grid-cols-2 lg:grid-cols-3"
+          />
+        )}
       </section>
 
       {/* Overview: problem + solution */}

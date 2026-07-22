@@ -38,7 +38,7 @@ export function CopyEmail({
       ) : (
         <Copy className="size-3.5" />
       )}
-      {copied ? "Copied" : "Copy email"}
+      {copied ? "Copied — your move." : "Copy email"}
     </button>
   );
 }

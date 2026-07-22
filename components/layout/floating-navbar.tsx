@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { navItems } from "@/content/navigation";
+import { usePrefersReducedMotion } from "@/lib/hooks";
 import { useTheme } from "@/components/providers/theme-provider";
 import { ThemeSwitcher } from "@/components/layout/theme-switcher";
 import { MobileMenu } from "@/components/layout/mobile-menu";
@@ -15,6 +17,7 @@ import { cn } from "@/lib/utils";
 export function FloatingNavbar() {
   const pathname = usePathname();
   const { theme } = useTheme();
+  const reduced = usePrefersReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [onDark, setOnDark] = useState(true);
   const [open, setOpen] = useState(false);
@@ -114,9 +117,16 @@ export function FloatingNavbar() {
                         : "text-muted hover:text-foreground",
                     )}
                   >
-                    {active && (
-                      <span className="absolute inset-0 rounded-full bg-surface-muted" />
-                    )}
+                    {active &&
+                      (reduced ? (
+                        <span className="absolute inset-0 rounded-full bg-surface-muted" />
+                      ) : (
+                        <motion.span
+                          layoutId="nav-active"
+                          className="absolute inset-0 rounded-full bg-surface-muted"
+                          transition={{ type: "spring", stiffness: 400, damping: 32 }}
+                        />
+                      ))}
                     <span className="relative">{item.label}</span>
                   </Link>
                 );

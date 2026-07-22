@@ -25,9 +25,12 @@ export const profile = {
 
   // Hero
   hero: {
-    headline: "I design the systems behind intelligent digital products.",
+    headline: "I design the systems behind products people actually enjoy using.",
     supporting:
-      "I'm Sean Muchenje, a software designer and full-stack product developer based in Harare. I turn complex workflows, business operations and technical ideas into clear, scalable software products.",
+      "I'm Sean Muchenje, a software designer and engineer based in Harare. I turn complex workflows, ambitious ideas and technical systems into clear, scalable digital products.",
+    // A subtle, confident line of personality — not a comedy act.
+    personalityLine:
+      "Part designer. Part engineer. Occasionally negotiates with stubborn APIs.",
     primaryCta: { label: "View Selected Work", href: "/work" },
     secondaryCta: { label: "Start a Project", href: "/contact" },
     availability: {
@@ -38,7 +41,7 @@ export const profile = {
 
   // Short bio used on the homepage
   shortBio:
-    "My work sits at the intersection of design, engineering and business operations. I study how people and organisations actually work, turn those processes into clear product systems, and build the interfaces and infrastructure that support them.",
+    "I enjoy the part of product design where messy real-world operations finally begin to make sense on a screen. I study how people and organisations actually work, turn those processes into clear product systems, and build the interfaces and infrastructure that hold them up.",
 
   // Long bio (about page) — grounded, no clichés
   bio: [
@@ -62,6 +65,22 @@ export const profile = {
     { label: "Background", value: "Mechatronics" },
     { label: "Focus", value: "AI, automation, systems" },
   ],
+
+  // Subtle, confident personality — used for microcopy across the site.
+  personality: {
+    footerBuilt:
+      "Built with strategy, TypeScript and unreasonable attention to spacing.",
+    footerLate: "Some ideas begin on paper. Others begin at 2:13 AM.",
+    copyEmailIdle: "Copy email",
+    copyEmailDone: "Copied — your move.",
+    notFoundKicker: "This route never made it past the whiteboard.",
+    // Small witty labels that reward attention.
+    quips: [
+      "Yes, the mobile version was designed properly.",
+      "No dashboards were harmed making this portfolio.",
+      "The API behaved. Eventually.",
+    ],
+  },
 } as const;
 
 export type Profile = typeof profile;
