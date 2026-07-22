@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { BrandMark } from "@/components/ui/brand";
 import { navItems } from "@/content/navigation";
+import { profile } from "@/content/profile";
 
 export default function NotFound() {
   return (
@@ -20,14 +21,14 @@ export default function NotFound() {
       <div className="relative">
         <BrandMark className="mx-auto size-10" animated />
         <p className="mt-8 font-mono text-[0.6875rem] uppercase tracking-[0.2em] text-faint">
-          Error 404 · Route not found
+          Error 404 · {profile.personality.notFoundKicker}
         </p>
         <h1 className="mt-4 text-balance text-[clamp(2rem,6vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.03em] text-foreground">
-          This path leads nowhere.
+          This page is still on the whiteboard.
         </h1>
         <p className="mx-auto mt-4 max-w-md text-pretty leading-relaxed text-muted">
-          The page you're looking for isn't part of the system. Let's get you back
-          to something that works.
+          The route you asked for isn't part of the system yet. No harm done —
+          let's get you back to something that ships.
         </p>
 
         <div className="mt-8 flex flex-wrap justify-center gap-3">

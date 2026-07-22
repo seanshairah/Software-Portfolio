@@ -4,6 +4,7 @@ import type { Project } from "@/content/projects";
 import { ProjectMockup } from "@/components/mockups";
 import { Badge } from "@/components/ui/badge";
 import { Reveal } from "@/components/motion/reveal";
+import { DesignNotes } from "@/components/portfolio/design-notes";
 import { pad, cn } from "@/lib/utils";
 
 const signatureLabel: Record<string, string> = {
@@ -96,6 +97,14 @@ export function FeaturedProject({
           </span>
         ))}
       </div>
+
+      {project.designNotes && (
+        <DesignNotes
+          notes={project.designNotes.slice(0, 2)}
+          accent={project.accent}
+          className="mt-6 border-t border-border pt-4"
+        />
+      )}
 
       <Link
         href={`/work/${project.slug}`}

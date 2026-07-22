@@ -136,4 +136,9 @@ export const safeTransport: Project = {
     "Driver coaching from real events",
     "Integration with insurance and compliance",
   ],
+  designNotes: [
+    "2,140 events today. The interface shows 3. The model that decides what to ignore is the product.",
+    "Sensors are probabilistic, so the UI communicates uncertainty instead of faking certainty.",
+    "Driver data is framed as feedback, not just a case file for later.",
+  ],
 };

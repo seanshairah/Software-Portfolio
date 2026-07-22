@@ -137,4 +137,9 @@ export const aiDissertation: Project = {
     "Reference discovery from the text",
     "Structure-aware plagiarism and integrity checks",
   ],
+  designNotes: [
+    "AI arrives as an editable diff, never a wall of generated text. You keep the pen.",
+    "The document is modelled as an argument — chapters and sections — not one long blob.",
+    "Progress is always visible, because the real enemy of a dissertation is the overwhelm.",
+  ],
 };

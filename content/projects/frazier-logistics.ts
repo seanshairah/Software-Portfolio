@@ -143,4 +143,9 @@ export const frazierLogistics: Project = {
     "Automated customs-document generation",
     "Transporter rating and performance history",
   ],
+  designNotes: [
+    "Exceptions sit at the top of the board. Totals can wait — a stuck load can't.",
+    "Every hand-off is an event on the job, so the audit trail writes itself.",
+    "Customs maths moved server-side and shows its working. Fewer arguments.",
+  ],
 };

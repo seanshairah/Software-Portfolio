@@ -88,8 +88,11 @@ export function Footer() {
         </div>
       </div>
 
-      <p className="shell pb-8 text-xs text-faint">
-        Designed &amp; built in Harare, Zimbabwe. The Digital Systems Studio.
+      <p
+        className="shell pb-8 text-xs text-faint"
+        title={profile.personality.footerLate}
+      >
+        {profile.personality.footerBuilt} Made in Harare, Zimbabwe.
       </p>
     </footer>
   );

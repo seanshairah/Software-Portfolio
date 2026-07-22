@@ -37,7 +37,7 @@ export function ProjectCard({
   return (
     <Link
       href={`/work/${project.slug}`}
-      data-cursor="Open"
+      data-cursor="Enter →"
       className="group flex flex-col rounded-2xl border border-border bg-surface-raised p-4 transition-all duration-300 hover:-translate-y-1 hover:border-border-strong hover:shadow-soft"
     >
       <Poster project={project} />

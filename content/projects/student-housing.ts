@@ -135,4 +135,9 @@ export const studentHousing: Project = {
     "Roommate matching",
     "Automated rent reminders and receipts",
   ],
+  designNotes: [
+    "Availability is derived from the booking, never typed in. Two dashboards, one truth.",
+    "The whole product lives or dies on the payment step feeling safe. So it's designed first.",
+    "Students browse on a phone at 11pm. That's the primary screen, not the desktop.",
+  ],
 };
