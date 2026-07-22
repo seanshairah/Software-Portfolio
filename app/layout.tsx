@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+// Fonts are loaded from the `geist` package (local files) rather than
+// next/font/google, so the production build never depends on a build-time fetch
+// to Google Fonts (which cloud build IPs are frequently rate-limited by).
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { profile } from "@/content/profile";
 import { ThemeProvider, ThemeScript } from "@/components/providers/theme-provider";
@@ -7,18 +11,6 @@ import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { FloatingNavbar } from "@/components/layout/floating-navbar";
 import { Footer } from "@/components/layout/footer";
 import { CustomCursor } from "@/components/layout/custom-cursor";
-
-const sans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-  display: "swap",
-});
-
-const mono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-  display: "swap",
-});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://seanmuchenje.com";
 
@@ -78,7 +70,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <head>
         <ThemeScript />
       </head>
