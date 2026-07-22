@@ -22,7 +22,7 @@
 
   --foreground: #111214;
   --muted: #5c5d63;
-  --faint: #929398;
+  --faint: #6e6f74;
 
   --border: rgba(17, 18, 20, 0.1);
   --border-strong: rgba(17, 18, 20, 0.2);
@@ -50,7 +50,7 @@
 
   --foreground: #f7f5ef;
   --muted: #9da4ad;
-  --faint: #676d75;
+  --faint: #8b929c;
 
   --border: rgba(247, 245, 239, 0.12);
   --border-strong: rgba(247, 245, 239, 0.26);

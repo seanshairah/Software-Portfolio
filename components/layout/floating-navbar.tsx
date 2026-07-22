@@ -22,11 +22,15 @@ export function FloatingNavbar() {
 
   const sample = useCallback(() => {
     setScrolled(window.scrollY > 24);
-    // Detect whether an explicit dark-world section sits under the navbar.
+    // Detect whether a dark cinematic section sits under the navbar. Sample
+    // BELOW the bar (y=88, past its ~68px bottom) and ignore the navbar overlay
+    // itself, then look for the [data-nav-dark] sentinel that only real dark
+    // sections carry — the navbar's own container has data-world but not that
+    // sentinel, which previously latched onDark to true forever.
     const x = Math.round(window.innerWidth / 2);
-    const el = document.elementFromPoint(x, 46);
-    const dark = !!el?.closest('[data-world="dark"]');
-    setOnDark(dark);
+    const stack = document.elementsFromPoint(x, 88);
+    const content = stack.find((n) => !n.closest("header"));
+    setOnDark(!!content?.closest("[data-nav-dark]"));
     ticking.current = false;
   }, []);
 
@@ -52,6 +56,14 @@ export function FloatingNavbar() {
     return () => {
       document.body.style.overflow = "";
     };
+  }, [open]);
+
+  // Return focus to the trigger when the mobile sheet closes.
+  const menuBtnRef = useRef<HTMLButtonElement>(null);
+  const wasOpen = useRef(false);
+  useEffect(() => {
+    if (wasOpen.current && !open) menuBtnRef.current?.focus();
+    wasOpen.current = open;
   }, [open]);
 
   // The navbar renders in the dark world when the global theme is dark or when
@@ -121,6 +133,7 @@ export function FloatingNavbar() {
                 Start a Project
               </ButtonLink>
               <button
+                ref={menuBtnRef}
                 type="button"
                 onClick={() => setOpen(true)}
                 aria-label="Open menu"

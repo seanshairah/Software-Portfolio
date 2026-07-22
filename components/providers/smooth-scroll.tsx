@@ -36,6 +36,9 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       if (!target) return;
       const id = target.getAttribute("href");
       if (!id || id === "#") return;
+      // Let the skip link use native fragment navigation so the browser moves
+      // keyboard focus to #main (which is focusable via tabIndex=-1).
+      if (target.classList.contains("skip-link")) return;
       const el = document.querySelector(id);
       if (el) {
         e.preventDefault();
