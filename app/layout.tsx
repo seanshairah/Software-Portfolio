@@ -82,7 +82,10 @@ export default function RootLayout({
           <CustomCursor />
           <FloatingNavbar />
           <SmoothScroll>
-            <main id="main">{children}</main>
+            {/* tabIndex=-1 so activating the skip link moves keyboard focus here */}
+            <main id="main" tabIndex={-1} className="outline-none">
+              {children}
+            </main>
             <Footer />
           </SmoothScroll>
         </ThemeProvider>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, X } from "lucide-react";
@@ -21,10 +22,44 @@ export function MobileMenu({
   onClose: () => void;
   pathname: string;
 }) {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  // Focus management for the modal sheet: focus the close button on open,
+  // close on Escape, and trap Tab within the dialog.
+  useEffect(() => {
+    if (!open) return;
+    closeRef.current?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const focusables = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusables.length) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open, onClose]);
+
   return (
     <AnimatePresence>
       {open && (
         <motion.div
+          ref={dialogRef}
           key="mobile-sheet"
           data-world="dark"
           className="fixed inset-0 z-[60] flex flex-col bg-background text-foreground lg:hidden"
@@ -39,6 +74,7 @@ export function MobileMenu({
           <div className="shell flex h-16 shrink-0 items-center justify-between border-b border-border">
             <Wordmark compact />
             <button
+              ref={closeRef}
               type="button"
               onClick={onClose}
               aria-label="Close menu"

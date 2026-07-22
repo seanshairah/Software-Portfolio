@@ -138,8 +138,8 @@ function Engine({ tier }: { tier: PerfTier }) {
       signalEdges.forEach(([a, b], idx) => {
         const speed = 0.22 + (idx % 3) * 0.05;
         const p = (t * speed + idx * 0.37) % 1;
-        const pos = nodes[a].pos.clone().lerp(nodes[b].pos, p);
-        dummy.position.copy(pos);
+        // Mutate in place (copy then lerp) — no per-frame allocation.
+        dummy.position.copy(nodes[a].pos).lerp(nodes[b].pos, p);
         dummy.scale.setScalar(1);
         dummy.updateMatrix();
         signalsRef.current!.setMatrixAt(idx, dummy.matrix);

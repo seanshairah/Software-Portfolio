@@ -4,6 +4,24 @@ import { insertInquiry } from "@/lib/db";
 
 export const runtime = "nodejs";
 
+// Best-effort in-memory rate limiting. It lives per serverless instance and
+// resets on cold start, so it is defense-in-depth alongside Zod validation and
+// the honeypot — not a hard guarantee. For strict limits, back this with a
+// shared store (e.g. Upstash Ratelimit) keyed on the same IP.
+const RATE_WINDOW_MS = 10 * 60_000;
+const RATE_MAX = 5;
+const rateHits = new Map<string, number[]>();
+
+function isRateLimited(ip: string, now: number): boolean {
+  const recent = (rateHits.get(ip) ?? []).filter((t) => now - t < RATE_WINDOW_MS);
+  recent.push(now);
+  if (recent.length) rateHits.set(ip, recent);
+  else rateHits.delete(ip);
+  // Bound memory across many IPs.
+  if (rateHits.size > 5000) rateHits.clear();
+  return recent.length > RATE_MAX;
+}
+
 /** Fire-and-forget email notification via Resend, if configured. */
 async function notifyByEmail(data: {
   name: string;
@@ -50,6 +68,17 @@ async function notifyByEmail(data: {
 }
 
 export async function POST(request: Request) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown";
+  if (isRateLimited(ip, Date.now())) {
+    return NextResponse.json(
+      { ok: false, error: "Too many requests. Please try again in a few minutes." },
+      { status: 429 },
+    );
+  }
+
   let body: unknown;
   try {
     body = await request.json();

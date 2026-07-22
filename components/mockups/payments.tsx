@@ -22,7 +22,8 @@ export function PaymentsMockup() {
       <div className="p-4">
         {/* Lifecycle */}
         <PanelLabel>Transaction lifecycle · txn_9f2a1c</PanelLabel>
-        <div className="flex items-center">
+        <div className="-mx-1 overflow-x-auto px-1 [scrollbar-width:none]">
+        <div className="flex min-w-[19rem] items-center">
           {lifecycle.map((s, i) => (
             <div key={s.t} className="flex flex-1 items-center last:flex-none">
               <div className="flex flex-col items-center gap-1.5">
@@ -43,6 +44,7 @@ export function PaymentsMockup() {
             </div>
           ))}
         </div>
+        </div>
 
         <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-5">
           {/* Recovery card */}
@@ -56,7 +58,7 @@ export function PaymentsMockup() {
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted">idempotency-key matched</span>
-                  <span className="text-[#e5b53d]">no double charge</span>
+                  <span className="text-[#8a6d1a] dark:text-[#e5b53d]">no double charge</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-muted">retry · backoff 2s → attempt 2</span>

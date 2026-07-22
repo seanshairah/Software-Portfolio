@@ -18,14 +18,16 @@ const ProductEngine = dynamic(
 
 function EngineViewport({ active }: { active: boolean }) {
   const [tier, setTier] = useState<PerfTier | null>(null);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     setTier(detectTier());
   }, []);
 
   // Before detection, and on the lightweight tier, show the static system.
+  // Never animate the SVG fallback for reduced-motion visitors.
   if (tier === null) return <WebGLFallback />;
-  if (tier === "lightweight") return <WebGLFallback animate />;
+  if (tier === "lightweight") return <WebGLFallback animate={!reduced} />;
   return <ProductEngine tier={tier} active={active} />;
 }
 
