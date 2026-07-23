@@ -9,17 +9,7 @@ import { pad } from "@/lib/utils";
 /** Dark cinematic opener for a case study. */
 export function CaseHero({ project }: { project: Project }) {
   return (
-    <header
-      data-world="dark"
-      data-nav-dark
-      className="relative overflow-hidden bg-background pt-36 pb-16 md:pt-44 md:pb-20"
-    >
-      <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
-      <div
-        className="pointer-events-none absolute -top-32 right-0 size-[36rem] rounded-full opacity-40 blur-[130px]"
-        style={{ background: `radial-gradient(circle, ${project.accent}44, transparent 70%)` }}
-        aria-hidden
-      />
+    <header className="relative pt-36 pb-14 md:pt-44 md:pb-16">
       <div className="shell relative">
         <Reveal>
           <div className="flex flex-wrap items-center gap-3">
@@ -35,12 +25,12 @@ export function CaseHero({ project }: { project: Project }) {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <h1 className="mt-8 max-w-4xl text-balance text-[clamp(2.25rem,5.5vw,4.25rem)] font-medium leading-[1.0] tracking-[-0.03em] text-foreground">
+          <h1 className="mt-7 max-w-3xl text-balance text-[clamp(2rem,4.8vw,3.5rem)] font-medium leading-[1.03] tracking-[-0.03em] text-foreground">
             {project.title}
           </h1>
         </Reveal>
         <Reveal delay={0.18}>
-          <p className="mt-6 max-w-3xl text-pretty text-xl leading-relaxed text-muted">
+          <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted md:text-xl">
             {project.openingStatement}
           </p>
         </Reveal>
