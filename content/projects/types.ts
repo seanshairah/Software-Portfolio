@@ -1,7 +1,7 @@
 export type SignatureInteraction =
   | "logistics-workflow"
   | "booking-lifecycle"
-  | "document-workspace"
+  | "orbit-brief"
   | "vehicle-twin"
   | "field-map"
   | "transaction-lifecycle";
@@ -9,7 +9,7 @@ export type SignatureInteraction =
 export type MockupPreset =
   | "logistics"
   | "housing"
-  | "dissertation"
+  | "kinos"
   | "transport"
   | "farming"
   | "payments";
