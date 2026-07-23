@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/content/projects";
 import { ProjectMockup } from "@/components/mockups";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Reveal } from "@/components/motion/reveal";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -16,22 +17,30 @@ export function WorkIndex() {
           <Reveal key={p.slug} y={28}>
             <article className="border-t border-border pt-8 md:pt-10">
               <div className="mb-6 grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-[1fr_auto] md:items-end">
-                <div>
-                  <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                    <span className="font-mono text-xs text-faint tabular">{pad(i + 1)}</span>
-                    <Link href={`/work/${p.slug}`} className="group inline-flex items-center gap-2">
-                      <h2 className="text-[1.5rem] font-medium tracking-[-0.02em] text-foreground transition-colors duration-300 group-hover:text-accent md:text-[1.9rem]">
-                        {p.title}
-                      </h2>
-                    </Link>
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-2 py-0.5 font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-faint">
-                      <span className="size-1.5 rounded-full" style={{ background: p.accent }} />
-                      {p.status}
-                    </span>
+                <div className="flex items-start gap-4 md:gap-5">
+                  <AppIcon
+                    accent={p.accent}
+                    preset={p.mockup}
+                    label={p.title}
+                    className="mt-0.5 size-12 md:size-[3.25rem]"
+                  />
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+                      <span className="font-mono text-xs text-faint tabular">{pad(i + 1)}</span>
+                      <Link href={`/work/${p.slug}`} className="group inline-flex items-center gap-2">
+                        <h2 className="text-[1.5rem] font-medium tracking-[-0.02em] text-foreground transition-colors duration-300 group-hover:text-accent md:text-[1.9rem]">
+                          {p.title}
+                        </h2>
+                      </Link>
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-2 py-0.5 font-mono text-[0.5625rem] uppercase tracking-[0.12em] text-faint">
+                        <span className="size-1.5 rounded-full" style={{ background: p.accent }} />
+                        {p.status}
+                      </span>
+                    </div>
+                    <p className="mt-2.5 max-w-xl text-pretty leading-relaxed text-muted">
+                      {p.tagline}
+                    </p>
                   </div>
-                  <p className="mt-2.5 max-w-xl text-pretty leading-relaxed text-muted">
-                    {p.tagline}
-                  </p>
                 </div>
                 <p className="font-mono text-[0.625rem] uppercase leading-relaxed tracking-[0.14em] text-faint md:text-right">
                   {p.year}

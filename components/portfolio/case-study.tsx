@@ -3,10 +3,12 @@ import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Eyebrow } from "@/components/ui/section";
 import { pad } from "@/lib/utils";
 
-/** Dark cinematic opener for a case study. */
+/** Calm opener for a case study — laid out like a product page: metadata,
+ *  the product's app icon, its name, then what it is. */
 export function CaseHero({ project }: { project: Project }) {
   return (
     <header className="relative pt-36 pb-14 md:pt-44 md:pb-16">
@@ -24,8 +26,17 @@ export function CaseHero({ project }: { project: Project }) {
           </div>
         </Reveal>
 
+        <Reveal delay={0.06}>
+          <AppIcon
+            accent={project.accent}
+            preset={project.mockup}
+            label={project.title}
+            className="mt-8 size-16 md:size-[4.5rem]"
+          />
+        </Reveal>
+
         <Reveal delay={0.1}>
-          <h1 className="mt-7 max-w-3xl text-balance text-[clamp(2rem,4.8vw,3.5rem)] font-medium leading-[1.03] tracking-[-0.03em] text-foreground">
+          <h1 className="mt-5 max-w-3xl text-balance text-[clamp(2rem,4.8vw,3.5rem)] font-medium leading-[1.03] tracking-[-0.03em] text-foreground">
             {project.title}
           </h1>
         </Reveal>

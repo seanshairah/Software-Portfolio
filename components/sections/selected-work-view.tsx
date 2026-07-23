@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { AppIcon } from "@/components/ui/app-icon";
+import type { MockupPreset } from "@/content/projects/types";
 
 export interface WorkItem {
   slug: string;
@@ -15,6 +17,7 @@ export interface WorkItem {
   year: string;
   status: string;
   accent: string;
+  preset: MockupPreset;
   preview: React.ReactNode;
 }
 
@@ -35,11 +38,14 @@ export function SelectedWorkView({ items }: { items: WorkItem[] }) {
               href={`/work/${p.slug}`}
               onMouseEnter={() => setActive(i)}
               onFocus={() => setActive(i)}
-              className="group grid grid-cols-[1.75rem_1fr_auto] items-start gap-3 border-t border-border py-6 first:border-t-0 sm:gap-5"
+              className="group grid grid-cols-[2.5rem_1fr_auto] items-start gap-3.5 border-t border-border py-6 first:border-t-0 sm:gap-5"
             >
-              <span className="pt-1.5 font-mono text-xs text-faint tabular">
-                {String(i + 1).padStart(2, "0")}
-              </span>
+              <AppIcon
+                accent={p.accent}
+                preset={p.preset}
+                label={p.title}
+                className="mt-0.5 size-10 transition-transform duration-500 ease-out-expo group-hover:-translate-y-0.5"
+              />
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
                   <h3 className="text-xl font-medium tracking-[-0.02em] text-foreground transition-colors duration-300 group-hover:text-accent sm:text-[1.55rem]">
