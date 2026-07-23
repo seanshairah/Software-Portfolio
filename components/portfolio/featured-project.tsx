@@ -10,7 +10,7 @@ import { pad, cn } from "@/lib/utils";
 const signatureLabel: Record<string, string> = {
   "logistics-workflow": "Signature · animated logistics workflow",
   "booking-lifecycle": "Signature · mobile-to-dashboard journey",
-  "document-workspace": "Signature · live document workspace",
+  "orbit-brief": "Signature · the family Orbit + Daily Brief",
   "vehicle-twin": "Signature · vehicle digital twin",
   "field-map": "Signature · switchable field map",
   "transaction-lifecycle": "Signature · transaction lifecycle",

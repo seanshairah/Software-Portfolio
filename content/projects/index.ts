@@ -1,7 +1,7 @@
 import type { Project } from "./types";
 import { frazierLogistics } from "./frazier-logistics";
 import { studentHousing } from "./student-housing";
-import { aiDissertation } from "./ai-dissertation";
+import { kinos } from "./kinos";
 import { safeTransport } from "./safe-transport";
 import { smartFarming } from "./smart-farming";
 import { paymentArchitecture } from "./payment-architecture";
@@ -9,7 +9,7 @@ import { paymentArchitecture } from "./payment-architecture";
 export const projects: Project[] = [
   frazierLogistics,
   studentHousing,
-  aiDissertation,
+  kinos,
   safeTransport,
   smartFarming,
   paymentArchitecture,

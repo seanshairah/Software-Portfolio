@@ -87,7 +87,7 @@ export function Hero() {
 
       <div className="shell relative z-20 w-full">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-7 xl:col-span-6">
+          <div className="lg:col-span-7">
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export function Hero() {
               trigger="mount"
               delay={0.15}
               lines={["I design the systems", "behind products people", "actually enjoy using."]}
-              className="text-balance text-[clamp(2.5rem,6.6vw,5.25rem)] font-medium leading-[0.96] tracking-[-0.035em] text-foreground"
+              className="text-balance text-[clamp(2.25rem,5.1vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.03em] text-foreground"
             />
 
             <motion.p
@@ -161,15 +161,28 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Corner technical labels */}
-      <div className="shell pointer-events-none absolute inset-x-0 bottom-6 z-20 hidden items-end justify-between lg:flex">
-        <div className="flex items-center gap-3">
-          <ArrowDown className="size-4 animate-bounce text-faint [animation-duration:2s]" />
-          <span className="label text-faint">Scroll to assemble</span>
-        </div>
+      {/* Floating scroll cue — centered */}
+      <motion.div
+        aria-hidden
+        initial={reduced ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 1.1 }}
+        className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex justify-center"
+      >
+        <motion.span
+          animate={reduced ? undefined : { y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex size-10 items-center justify-center rounded-full border border-border-strong/60 bg-surface/25 text-faint backdrop-blur-sm"
+        >
+          <ArrowDown className="size-4" />
+        </motion.span>
+      </motion.div>
+
+      {/* Subtle systems label — right */}
+      <div className="shell pointer-events-none absolute inset-x-0 bottom-6 z-10 hidden justify-end lg:flex">
         <div className="text-right">
-          <p className="label text-faint">SYS.01 / PRODUCT ENGINE</p>
-          <p className="label mt-1 text-faint/70">17.83°S · 31.05°E · HARARE</p>
+          <p className="label text-faint/80">SYS.01 · PRODUCT ENGINE</p>
+          <p className="label mt-1 text-faint/50">17.83°S · 31.05°E · HARARE</p>
         </div>
       </div>
 
