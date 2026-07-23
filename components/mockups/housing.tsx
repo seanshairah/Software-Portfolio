@@ -1,4 +1,32 @@
-import { AppFrame, PhoneFrame, Pill, Avatar, MiniBar, PanelLabel } from "./frame";
+import {
+  Building2,
+  LayoutGrid,
+  FileText,
+  Users,
+  CreditCard,
+  Plus,
+  CalendarDays,
+} from "lucide-react";
+import {
+  DashboardShell,
+  ShellButton,
+  PhoneFrame,
+  TableScroll,
+  Stat,
+  Pill,
+  Avatar,
+  PanelLabel,
+} from "./frame";
+
+const ACCENT = "#1f9e6b";
+
+const nav = [
+  { icon: LayoutGrid, label: "Dashboard" },
+  { icon: Building2, label: "Properties" },
+  { icon: FileText, label: "Applications", active: true, badge: "3" },
+  { icon: Users, label: "Tenants" },
+  { icon: CreditCard, label: "Payments" },
+];
 
 const rooms = [
   "occupied", "occupied", "confirmed", "occupied", "applied", "occupied",
@@ -12,72 +40,109 @@ const roomColor: Record<string, string> = {
   vacant: "bg-surface-muted border border-border",
 };
 
+const applications = [
+  { n: "T. Chikafu", room: "Room 7B", when: "2h ago", status: "Review", tone: "amber" as const },
+  { n: "M. Ndlovu", room: "Room 2A", when: "5h ago", status: "Paid", tone: "green" as const },
+  { n: "R. Sibanda", room: "Room 5C", when: "1d ago", status: "Review", tone: "amber" as const },
+];
+
 export function HousingMockup() {
   return (
     <div className="relative">
-      <AppFrame route="roost.co.zw/owner/occupancy" title="Owner" accent="#1f9e6b">
-        <div className="p-4">
-          <div className="mb-4 grid grid-cols-3 gap-3">
-            {[
-              { k: "Occupancy", v: "83%", b: 83 },
-              { k: "Rooms let", v: "15 / 18", b: 83 },
-              { k: "Pending", v: "3 apps", b: 30 },
-            ].map((s) => (
-              <div key={s.k} className="rounded-lg border border-border bg-surface p-3">
-                <p className="text-[0.625rem] text-faint">{s.k}</p>
-                <p className="mt-0.5 text-base font-medium text-foreground tabular">{s.v}</p>
-                <MiniBar className="mt-2" value={s.b} color="#1f9e6b" />
-              </div>
-            ))}
+      <DashboardShell
+        product="Roost"
+        icon={Building2}
+        accent={ACCENT}
+        nav={nav}
+        breadcrumb="Belgravia House · Mount Pleasant"
+        pageTitle="Occupancy"
+        account={{ name: "Owner", role: "Property manager" }}
+        actions={
+          <>
+            <ShellButton variant="ghost">
+              <CalendarDays className="size-3" /> July
+            </ShellButton>
+            <ShellButton accent={ACCENT}>
+              <Plus className="size-3" /> Add room
+            </ShellButton>
+          </>
+        }
+      >
+        {/* KPI row */}
+        <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+          <Stat label="Occupancy" value="83%" delta="+4%" />
+          <Stat label="Rooms let" value="15 / 18" delta="3 open" deltaTone="muted" />
+          <Stat label="Rent collected" value="$2,700" delta="94%" />
+          <Stat label="Applications" value="3" delta="new" deltaTone="muted" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
+          {/* Applications table */}
+          <div className="lg:col-span-3">
+            <PanelLabel>Recent applications</PanelLabel>
+            <div className="overflow-hidden rounded-lg border border-border">
+              <TableScroll>
+                <table className="w-full min-w-[22rem] border-collapse text-left">
+                  <thead>
+                    <tr className="border-b border-border bg-surface">
+                      {["Applicant", "Room", "Submitted", "Status"].map((h) => (
+                        <th
+                          key={h}
+                          className="px-3 py-2 font-mono text-[0.5625rem] font-medium uppercase tracking-[0.12em] text-faint"
+                        >
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {applications.map((a) => (
+                      <tr key={a.n} className="border-b border-border/70 transition-colors last:border-0 hover:bg-surface">
+                        <td className="px-3 py-2.5">
+                          <span className="flex items-center gap-2">
+                            <Avatar name={a.n} className="size-5" />
+                            <span className="text-[0.75rem] font-medium text-foreground">{a.n}</span>
+                          </span>
+                        </td>
+                        <td className="px-3 py-2.5 text-[0.6875rem] text-muted">{a.room}</td>
+                        <td className="px-3 py-2.5 text-[0.6875rem] text-faint">{a.when}</td>
+                        <td className="px-3 py-2.5">
+                          <Pill tone={a.tone}>{a.status}</Pill>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </TableScroll>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-5">
-            <div className="sm:col-span-3">
-              <PanelLabel>Belgravia House · room states</PanelLabel>
+          {/* Room-state grid */}
+          <div className="lg:col-span-2">
+            <PanelLabel>Room states · Belgravia House</PanelLabel>
+            <div className="rounded-lg border border-border bg-surface p-3">
               <div className="grid grid-cols-6 gap-1.5">
                 {rooms.map((r, i) => (
-                  <span
-                    key={i}
-                    className={`aspect-square rounded-[4px] ${roomColor[r]}`}
-                    title={r}
-                  />
+                  <span key={i} className={`aspect-square rounded-[4px] ${roomColor[r]}`} title={r} />
                 ))}
               </div>
               <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
                 {["occupied", "confirmed", "applied", "vacant"].map((r) => (
                   <span key={r} className="flex items-center gap-1.5">
                     <span className={`size-2 rounded-[3px] ${roomColor[r]}`} />
-                    <span className="text-[0.625rem] capitalize text-muted">{r}</span>
+                    <span className="text-[0.5625rem] capitalize text-muted">{r}</span>
                   </span>
-                ))}
-              </div>
-            </div>
-
-            <div className="sm:col-span-2">
-              <PanelLabel>Recent applications</PanelLabel>
-              <div className="space-y-2">
-                {[
-                  { n: "T. Chikafu", r: "Room 7B", s: "Review" },
-                  { n: "M. Ndlovu", r: "Room 2A", s: "Paid" },
-                  { n: "R. Sibanda", r: "Room 5C", s: "Review" },
-                ].map((a) => (
-                  <div key={a.n} className="flex items-center gap-2 rounded-lg border border-border bg-surface p-2">
-                    <Avatar name={a.n} />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-[0.75rem] font-medium text-foreground">{a.n}</p>
-                      <p className="text-[0.625rem] text-faint">{a.r}</p>
-                    </div>
-                    <Pill tone={a.s === "Paid" ? "green" : "amber"}>{a.s}</Pill>
-                  </div>
                 ))}
               </div>
             </div>
           </div>
         </div>
-      </AppFrame>
+      </DashboardShell>
 
-      {/* Student phone — the discovery + booking side */}
-      <div className="absolute -bottom-6 -right-3 hidden w-40 md:block lg:w-48">
+      {/* Student phone — the discovery + booking side (the two-sided product).
+          Pushed off the bottom-right corner so it peeks in rather than covering
+          the room grid on wide case-study layouts. */}
+      <div className="absolute -bottom-10 right-0 hidden w-36 translate-x-[12%] md:block lg:w-40 lg:translate-x-[42%]">
         <PhoneFrame label="LTE">
           <div className="p-3">
             <PanelLabel>Find a room</PanelLabel>
