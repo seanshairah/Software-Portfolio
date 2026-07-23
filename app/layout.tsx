@@ -10,7 +10,6 @@ import { ThemeProvider, ThemeScript } from "@/components/providers/theme-provide
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { FloatingNavbar } from "@/components/layout/floating-navbar";
 import { Footer } from "@/components/layout/footer";
-import { CustomCursor } from "@/components/layout/custom-cursor";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://seanmuchenje.com";
 
@@ -58,8 +57,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f2ee" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b0c0e" },
+    { media: "(prefers-color-scheme: light)", color: "#f6f6f4" },
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0b" },
   ],
   colorScheme: "light dark",
 };
@@ -79,7 +78,6 @@ export default function RootLayout({
           <a href="#main" className="skip-link">
             Skip to content
           </a>
-          <CustomCursor />
           <FloatingNavbar />
           <SmoothScroll>
             {/* tabIndex=-1 so activating the skip link moves keyboard focus here */}

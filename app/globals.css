@@ -15,57 +15,57 @@
 
 :root,
 [data-world="light"] {
-  --background: #f3f2ee;
-  --surface: #fcfbf8;
-  --surface-muted: #e8e7e2;
+  --background: #f6f6f4;
+  --surface: #fbfbfa;
+  --surface-muted: #ececea;
   --surface-raised: #ffffff;
 
-  --foreground: #111214;
-  --muted: #5c5d63;
-  --faint: #6e6f74;
+  --foreground: #18181a;
+  --muted: #55565b;
+  --faint: #78797f;
 
-  --border: rgba(17, 18, 20, 0.1);
-  --border-strong: rgba(17, 18, 20, 0.2);
+  --border: rgba(18, 18, 20, 0.09);
+  --border-strong: rgba(18, 18, 20, 0.16);
 
-  --accent: #1268f3;
-  --accent-soft: rgba(18, 104, 243, 0.08);
+  --accent: #2c5fe0;
+  --accent-soft: rgba(44, 95, 224, 0.07);
   --accent-foreground: #ffffff;
 
-  --signal-red: #e5484d;
-  --signal-blue: #1268f3;
-  --signal-green: #17a06a;
+  --signal-red: #d3453f;
+  --signal-blue: #2c5fe0;
+  --signal-green: #189a63;
 
-  --grid-line: rgba(17, 18, 20, 0.05);
-  --dot: rgba(17, 18, 20, 0.14);
-  --glow: rgba(18, 104, 243, 0.12);
-  --shadow-color: 17 18 20;
+  --grid-line: rgba(18, 18, 20, 0.04);
+  --dot: rgba(18, 18, 20, 0.11);
+  --glow: rgba(44, 95, 224, 0.06);
+  --shadow-color: 18 18 20;
 }
 
 .dark,
 [data-world="dark"] {
-  --background: #0b0c0e;
-  --surface: #15171a;
-  --surface-muted: #202328;
-  --surface-raised: #1b1e22;
+  --background: #0a0a0b;
+  --surface: #141416;
+  --surface-muted: #202023;
+  --surface-raised: #18181b;
 
-  --foreground: #f7f5ef;
-  --muted: #9da4ad;
-  --faint: #8b929c;
+  --foreground: #ededec;
+  --muted: #a0a0a8;
+  --faint: #82828b;
 
-  --border: rgba(247, 245, 239, 0.12);
-  --border-strong: rgba(247, 245, 239, 0.26);
+  --border: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.18);
 
-  --accent: #3c7dff;
-  --accent-soft: rgba(60, 125, 255, 0.16);
-  --accent-foreground: #06070a;
+  --accent: #6a90f7;
+  --accent-soft: rgba(106, 144, 247, 0.15);
+  --accent-foreground: #05060a;
 
-  --signal-red: #ff3d3d;
-  --signal-blue: #3c7dff;
-  --signal-green: #39ff88;
+  --signal-red: #ff6159;
+  --signal-blue: #6a90f7;
+  --signal-green: #34d68b;
 
-  --grid-line: rgba(247, 245, 239, 0.06);
-  --dot: rgba(247, 245, 239, 0.16);
-  --glow: rgba(60, 125, 255, 0.22);
+  --grid-line: rgba(255, 255, 255, 0.045);
+  --dot: rgba(255, 255, 255, 0.13);
+  --glow: rgba(106, 144, 247, 0.10);
   --shadow-color: 0 0 0;
 }
 
