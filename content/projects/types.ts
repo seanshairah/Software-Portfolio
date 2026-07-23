@@ -76,6 +76,9 @@ export interface Project {
   responsive: string;
   challenges: NamedBlock[];
 
+  // Live product URL — only for shipped systems with a public site.
+  liveUrl?: string;
+
   // Optional / forward-looking (framed honestly)
   security?: string[];
   outcomes?: string[]; // expected / intended outcomes

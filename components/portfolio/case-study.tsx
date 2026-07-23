@@ -35,6 +35,20 @@ export function CaseHero({ project }: { project: Project }) {
           </p>
         </Reveal>
 
+        {project.liveUrl && (
+          <Reveal delay={0.22}>
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-7 inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform duration-300 ease-out-expo hover:-translate-y-0.5"
+            >
+              Visit live site
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </Reveal>
+        )}
+
         <Reveal delay={0.26}>
           <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-border pt-8 md:grid-cols-4">
             {[

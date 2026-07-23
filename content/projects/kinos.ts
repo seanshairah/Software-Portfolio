@@ -5,6 +5,7 @@ export const kinos: Project = {
   featured: true,
   title: "KinOS",
   slug: "kinos",
+  liveUrl: "https://kinos.live",
   category: "Family Operating System · Consumer",
   industry: "Family Care · Consent-native Software",
   year: "2026",

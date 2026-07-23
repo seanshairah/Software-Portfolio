@@ -53,16 +53,29 @@ export function WorkIndex() {
                 <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-faint">
                   {p.role} · {p.industry}
                 </p>
-                <Link
-                  href={`/work/${p.slug}`}
-                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground"
-                >
-                  <span className="relative">
-                    Read case study
-                    <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
-                  </span>
-                  <ArrowUpRight className="size-4 text-accent transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
+                <div className="flex items-center gap-5">
+                  {p.liveUrl && (
+                    <a
+                      href={p.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-foreground"
+                    >
+                      Live site
+                      <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </a>
+                  )}
+                  <Link
+                    href={`/work/${p.slug}`}
+                    className="group inline-flex items-center gap-1.5 text-sm font-medium text-foreground"
+                  >
+                    <span className="relative">
+                      Read case study
+                      <span className="absolute -bottom-0.5 left-0 h-px w-full origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100" />
+                    </span>
+                    <ArrowUpRight className="size-4 text-accent transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </Link>
+                </div>
               </div>
             </article>
           </Reveal>
