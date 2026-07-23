@@ -18,6 +18,8 @@ import {
   Heart,
   Pill,
   ShieldCheck,
+  Receipt,
+  Syringe,
 } from "lucide-react";
 import type { MockupPreset } from "@/content/projects/types";
 import type { Screen } from "@/components/portfolio/screen-switcher";
@@ -402,23 +404,312 @@ function KinosPersonScreen() {
   );
 }
 
+/* ── Frazier · customs clearance ─────────────────────────────────────────── */
+const customsDocs: [string, string, boolean][] = [
+  ["Bill of entry", "ZW-BE-4471", true],
+  ["Commercial invoice", "INV-2481", true],
+  ["Packing list", "PL-2481", true],
+  ["Import permit", "pending", false],
+];
+
+function LogisticsCustomsScreen() {
+  return (
+    <DashboardShell
+      product="Frazier"
+      icon={Ship}
+      accent={FRZ}
+      breadcrumb="Logistics · Customs"
+      pageTitle="Customs clearance · FRZ-2481"
+      account={{ name: "Chief Customs", role: "Frazier Shipping" }}
+      nav={[
+        { icon: LayoutGrid, label: "Overview" },
+        { icon: Package, label: "Job Pool", badge: "12" },
+        { icon: Ship, label: "Shipments" },
+        { icon: FileCheck, label: "Customs", active: true, badge: "3" },
+        { icon: Wallet, label: "Finance" },
+      ]}
+      actions={<ShellButton accent={FRZ}>Submit to ZIMRA</ShellButton>}
+    >
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+        <div className="rounded-lg border border-border bg-surface p-3.5">
+          <div className="mb-1 flex items-center justify-between">
+            <PanelLabel>Duties & taxes</PanelLabel>
+            <Tag tone="accent">AEO lane</Tag>
+          </div>
+          <KV k="Customs value" v="$18,400" />
+          <KV k="Duty · 25%" v="$4,600" />
+          <KV k="VAT · 15%" v="$3,450" />
+          <div className="mt-1 flex items-center justify-between border-t border-border pt-2">
+            <span className="text-[0.6875rem] font-medium text-foreground">Payable to ZIMRA</span>
+            <span className="text-[0.8125rem] font-semibold text-foreground tabular">$8,050</span>
+          </div>
+        </div>
+        <div className="rounded-lg border border-border bg-surface p-3.5">
+          <PanelLabel>Documents</PanelLabel>
+          {customsDocs.map(([name, ref, ok]) => (
+            <div key={name} className="flex items-center justify-between border-b border-border/60 py-2 last:border-0">
+              <span className="flex items-center gap-2">
+                <span
+                  className="flex size-5 items-center justify-center rounded-md"
+                  style={{
+                    background: ok ? "var(--signal-green)" : "var(--surface-muted)",
+                    color: ok ? "#fff" : "var(--faint)",
+                  }}
+                >
+                  {ok ? <Check className="size-3" /> : <FileText className="size-3" />}
+                </span>
+                <span className="text-[0.75rem] text-foreground">{name}</span>
+              </span>
+              <span className="font-mono text-[0.5625rem] text-faint">{ref}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="mt-3 flex items-center justify-between text-[0.625rem] text-faint">
+        <span>Beitbridge border post · AEO-accredited</span>
+        <span className="text-foreground">ZIMRA ASYCUDA</span>
+      </div>
+    </DashboardShell>
+  );
+}
+
+/* ── Ivy House · rooms & occupancy ───────────────────────────────────────── */
+const ivyRooms = [
+  { id: "IVY-101", s: "occupied" }, { id: "IVY-102", s: "occupied" }, { id: "IVY-103", s: "occupied" },
+  { id: "IVY-104", s: "available" }, { id: "IVY-105", s: "occupied" }, { id: "IVY-201", s: "reserved" },
+  { id: "IVY-202", s: "occupied" }, { id: "IVY-203", s: "occupied" }, { id: "IVY-204", s: "available" },
+  { id: "IVY-205", s: "occupied" },
+];
+const ivyRoomColor: Record<string, string> = {
+  occupied: "#334155",
+  available: "#157857",
+  reserved: "#d97706",
+};
+
+function IvyRoomsScreen() {
+  return (
+    <DashboardShell
+      product="Ivy House"
+      icon={Home}
+      accent={IVY}
+      breadcrumb="Ivy House · Rooms"
+      pageTitle="Rooms & occupancy"
+      account={{ name: "Tatenda Moyo", role: "Owner" }}
+      nav={[
+        { icon: LayoutGrid, label: "Overview" },
+        { icon: BedDouble, label: "Rooms", active: true, badge: "10" },
+        { icon: FileText, label: "Applications", badge: "3" },
+        { icon: Users, label: "Students" },
+        { icon: CreditCard, label: "Payments" },
+      ]}
+      actions={<ShellButton accent={IVY}>Add room</ShellButton>}
+    >
+      <div className="mb-4 grid grid-cols-3 gap-3">
+        <Stat label="Occupied" value="8 / 10" delta="80%" />
+        <Stat label="Available" value="2" delta="ready" deltaTone="green" />
+        <Stat label="Reserved" value="1" delta="hold" deltaTone="muted" />
+      </div>
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-5">
+        <div className="md:col-span-3">
+          <div className="grid grid-cols-5 gap-2">
+            {ivyRooms.map((r) => (
+              <div
+                key={r.id}
+                className="flex aspect-square flex-col items-center justify-center rounded-lg text-[0.5rem] font-medium text-white"
+                style={{ background: ivyRoomColor[r.s] }}
+                title={`${r.id} · ${r.s}`}
+              >
+                <BedDouble className="mb-1 size-3.5 opacity-90" />
+                {r.id.split("-")[1]}
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1">
+            {Object.entries(ivyRoomColor).map(([k, c]) => (
+              <span key={k} className="flex items-center gap-1.5">
+                <span className="size-2 rounded" style={{ background: c }} />
+                <span className="text-[0.5625rem] capitalize text-muted">{k}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="md:col-span-2">
+          <div className="rounded-lg border border-border bg-surface p-3.5">
+            <PanelLabel>IVY-104 · available</PanelLabel>
+            <KV k="Type" v="Shared double" />
+            <KV k="Floor" v="Ground" />
+            <KV k="Beds" v="2 · both open" />
+            <KV k="Rent" v="$130 / mo" />
+            <div className="mt-2 flex items-center justify-center gap-1.5 rounded-lg py-2 text-[0.6875rem] font-semibold text-white" style={{ background: IVY }}>
+              Assign applicant
+            </div>
+          </div>
+        </div>
+      </div>
+    </DashboardShell>
+  );
+}
+
+/* ── Msasa · livestock (dark forest) ─────────────────────────────────────── */
+const herd = [
+  { group: "Beef herd A", head: 96, breed: "Brahman", wt: "430 kg", status: "Grazing", tone: "green" as const },
+  { group: "Beef herd B", head: 64, breed: "Tuli", wt: "402 kg", status: "Vaccinate", tone: "amber" as const },
+  { group: "Dairy", head: 18, breed: "Holstein", wt: "520 kg", status: "Milking", tone: "blue" as const },
+  { group: "Calves", head: 24, breed: "Mixed", wt: "96 kg", status: "Weaning", tone: "muted" as const },
+];
+
+function MsasaLivestockScreen() {
+  return (
+    <DashboardShell
+      className="dark"
+      vars={MSASA_VARS}
+      product="Msasa"
+      icon={Leaf}
+      accent={LIME}
+      accentInk={MSASA_INK}
+      breadcrumb="Livestock · Herd"
+      pageTitle="Herd register"
+      account={{ name: "R. Banda", role: "Estate manager" }}
+      nav={[
+        { icon: LayoutGrid, label: "Farm HQ" },
+        { icon: Sprout, label: "Crops" },
+        { icon: Beef, label: "Livestock", active: true, badge: "202" },
+        { icon: Tractor, label: "Machinery" },
+        { icon: Users, label: "Workforce" },
+      ]}
+      actions={<ShellButton accent={LIME} ink={MSASA_INK}>Record weight</ShellButton>}
+    >
+      <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
+        <Stat label="Total head" value="202" delta="+6 calves" deltaTone="green" />
+        <Stat label="Avg weight" value="418kg" delta="beef" deltaTone="muted" />
+        <Stat label="Vaccinations" value="2 due" delta="this week" deltaTone="red" />
+        <Stat label="Mortality" value="0.4%" delta="season" deltaTone="green" />
+      </div>
+      <div className="overflow-hidden rounded-lg border border-border">
+        <TableScroll>
+          <table className="w-full min-w-[30rem] border-collapse text-left">
+            <thead>
+              <tr className="border-b border-border bg-surface">
+                {["Group", "Head", "Breed", "Avg wt", "Status"].map((h) => (
+                  <th key={h} className="px-3 py-2 font-mono text-[0.5625rem] font-medium uppercase tracking-[0.12em] text-faint">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {herd.map((r) => (
+                <tr key={r.group} className="border-b border-border/70 transition-colors last:border-0 hover:bg-surface">
+                  <td className="px-3 py-2.5 text-[0.75rem] font-medium text-foreground">{r.group}</td>
+                  <td className="px-3 py-2.5 text-[0.75rem] text-foreground tabular">{r.head}</td>
+                  <td className="px-3 py-2.5 text-[0.6875rem] text-muted">{r.breed}</td>
+                  <td className="px-3 py-2.5 text-[0.6875rem] text-muted tabular">{r.wt}</td>
+                  <td className="px-3 py-2.5"><Tag tone={r.tone}>{r.status}</Tag></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TableScroll>
+      </div>
+      <div className="mt-3 flex items-center gap-2 rounded-lg p-2.5" style={{ background: "rgba(229,181,61,0.12)", border: "1px solid rgba(229,181,61,0.3)" }}>
+        <Syringe className="size-3.5" style={{ color: "#e5b53d" }} />
+        <span className="text-[0.6875rem] text-foreground">Beef herd B — blackleg booster due in 3 days (64 head)</span>
+      </div>
+    </DashboardShell>
+  );
+}
+
+/* ── KinOS · money (Dusk) ────────────────────────────────────────────────── */
+const ledger = [
+  { what: "Pharmacy · Metformin", who: "Rudo", method: "Paynow", amt: "$18" },
+  { what: "Groceries · week", who: "Amai", method: "Cash", amt: "$40" },
+  { what: "Clinic · BP check", who: "Baba", method: "EcoCash", amt: "$25" },
+];
+
+function KinosMoneyScreen() {
+  return (
+    <div className="overflow-hidden rounded-2xl shadow-raised" style={{ background: C.paper, border: `1px solid ${C.line}`, color: C.ink }}>
+      <div className="flex items-center justify-between gap-3 px-4 py-3.5" style={{ borderBottom: `1px solid ${C.line}` }}>
+        <div>
+          <p className="text-[0.875rem] font-semibold" style={{ color: C.ink }}>Gogo&rsquo;s care · this month</p>
+          <p className="text-[0.625rem]" style={{ color: C.inkFaint }}>Shared across the orbit · splits automatically</p>
+        </div>
+        <div className="text-right">
+          <p className="text-[0.5rem] uppercase tracking-[0.14em]" style={{ color: C.inkFaint }}>Total</p>
+          <p className="text-[0.9375rem] font-semibold" style={{ color: C.ink }}>$83</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-5">
+        <div className="md:col-span-3">
+          <p className="mb-2 flex items-center gap-1.5 font-mono text-[0.5625rem] uppercase tracking-[0.14em]" style={{ color: C.inkFaint }}>
+            <Receipt className="size-3" style={{ color: C.dusk }} /> Recent
+          </p>
+          <div className="rounded-xl" style={{ background: C.card, border: `1px solid ${C.line}` }}>
+            {ledger.map((r, i) => (
+              <div key={i} className="flex items-center gap-2.5 border-b p-3 last:border-0" style={{ borderColor: C.line }}>
+                <span className="flex size-7 items-center justify-center rounded-lg" style={{ background: C.duskInk, color: C.dusk }}>
+                  <Receipt className="size-3.5" />
+                </span>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[0.75rem] font-medium" style={{ color: C.ink }}>{r.what}</p>
+                  <p className="text-[0.625rem]" style={{ color: C.inkFaint }}>{r.who} · {r.method}</p>
+                </div>
+                <span className="text-[0.8125rem] font-semibold tabular" style={{ color: C.ink }}>{r.amt}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="md:col-span-2">
+          <div className="rounded-xl p-3.5" style={{ background: C.calmSoft, border: `1px solid ${C.calmSoft}` }}>
+            <p className="text-[0.5rem] uppercase tracking-[0.14em]" style={{ color: C.calmText }}>Your share is settled</p>
+            <p className="mt-1 text-[1.0625rem] font-semibold" style={{ color: C.calmText }}>$0 owed</p>
+            <p className="mt-0.5 text-[0.625rem]" style={{ color: C.calmText }}>Everyone&rsquo;s paid their split this month.</p>
+          </div>
+          <div className="mt-3 rounded-xl p-3" style={{ background: C.card, border: `1px solid ${C.line}` }}>
+            <PayChip label="Paynow" />
+            <PayChip label="EcoCash" />
+            <p className="mt-1.5 flex items-center gap-1 text-[0.5625rem]" style={{ color: C.inkFaint }}>
+              <ShieldCheck className="size-2.5" style={{ color: C.dusk }} /> Rudo & Amai can see money
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PayChip({ label }: { label: string }) {
+  return (
+    <div className="mb-1.5 flex items-center gap-2 rounded-lg px-2.5 py-1.5" style={{ background: C.paper, border: `1px solid ${C.line}` }}>
+      <Smartphone className="size-3" style={{ color: C.dusk }} />
+      <span className="text-[0.6875rem] font-medium" style={{ color: C.ink }}>{label}</span>
+      <span className="ml-auto text-[0.5625rem]" style={{ color: C.calmText }}>connected</span>
+    </div>
+  );
+}
+
 /* ── Registry ─────────────────────────────────────────────────────────────── */
 export const projectScreens: Record<MockupPreset, Screen[]> = {
   logistics: [
     { label: "Job pool", node: <LogisticsMockup /> },
     { label: "Shipment tracking", node: <LogisticsShipmentScreen /> },
+    { label: "Customs clearance", node: <LogisticsCustomsScreen /> },
   ],
   housing: [
     { label: "Applications", node: <HousingMockup /> },
+    { label: "Rooms & occupancy", node: <IvyRoomsScreen /> },
     { label: "Payments · EcoCash", node: <IvyPaymentsScreen /> },
   ],
   kinos: [
     { label: "Daily Brief", node: <KinosMockup /> },
     { label: "A person · Gogo", node: <KinosPersonScreen /> },
+    { label: "Money", node: <KinosMoneyScreen /> },
   ],
   farming: [
     { label: "Fields & map", node: <FarmingMockup /> },
     { label: "Field detail", node: <MsasaFieldScreen /> },
+    { label: "Livestock", node: <MsasaLivestockScreen /> },
   ],
   transport: [{ label: "Overview", node: <TransportMockup /> }],
   payments: [{ label: "Overview", node: <PaymentsMockup /> }],
