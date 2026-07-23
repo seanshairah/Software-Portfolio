@@ -91,12 +91,7 @@ export function FloatingNavbar() {
               aria-label="Sean Muchenje — home"
               className="shrink-0 rounded-full text-foreground"
             >
-              <span className="hidden sm:block">
-                <Wordmark />
-              </span>
-              <span className="sm:hidden">
-                <Wordmark compact />
-              </span>
+              <Wordmark />
             </Link>
 
             {/* Desktop nav */}
