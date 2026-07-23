@@ -1,198 +1,74 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import { profile } from "@/content/profile";
-import { ButtonLink } from "@/components/ui/button";
-import { StatusDot } from "@/components/ui/badge";
-import { MaskLines } from "@/components/motion/reveal";
-import { WebGLFallback } from "@/components/three/webgl-fallback";
-import { detectTier, type PerfTier } from "@/lib/performance";
 
-const ProductEngine = dynamic(
-  () => import("@/components/three/product-engine"),
-  { ssr: false, loading: () => <WebGLFallback animate /> },
-);
+const EASE = [0.16, 1, 0.3, 1] as const;
 
-function EngineViewport({ active }: { active: boolean }) {
-  const [tier, setTier] = useState<PerfTier | null>(null);
-  const reduced = useReducedMotion();
-
-  useEffect(() => {
-    setTier(detectTier());
-  }, []);
-
-  // Before detection, and on the lightweight tier, show the static system.
-  // Never animate the SVG fallback for reduced-motion visitors.
-  if (tier === null) return <WebGLFallback />;
-  if (tier === "lightweight") return <WebGLFallback animate={!reduced} />;
-  return <ProductEngine tier={tier} active={active} />;
-}
-
+/**
+ * Home hero — restrained and precise. States who, what, where, the areas of
+ * strength, and availability, then gives one primary route into the work and
+ * one way to connect. No 3D, no glow — the type does the work.
+ */
 export function Hero() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(true);
   const reduced = useReducedMotion();
-
-  // Pause the render loop when the hero leaves the viewport or the tab hides.
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    let visible = true;
-    let onScreen = true;
-    const update = () => setActive(visible && onScreen);
-
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        onScreen = entry.isIntersecting;
-        update();
-      },
-      { threshold: 0.05 },
-    );
-    io.observe(el);
-
-    const onVis = () => {
-      visible = document.visibilityState === "visible";
-      update();
-    };
-    document.addEventListener("visibilitychange", onVis);
-    return () => {
-      io.disconnect();
-      document.removeEventListener("visibilitychange", onVis);
-    };
-  }, []);
+  const rise = (delay: number) => ({
+    initial: reduced ? false : { opacity: 0, y: 14 },
+    animate: { opacity: 1, y: 0 },
+    transition: reduced ? { duration: 0 } : { duration: 0.7, delay, ease: EASE },
+  });
 
   return (
-    <section
-      ref={sectionRef}
-      data-world="dark"
-      data-nav-dark
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden bg-background pt-28 pb-16"
-    >
-      {/* Ambient grid + glow */}
-      <div className="pointer-events-none absolute inset-0 grid-lines opacity-60" aria-hidden />
-      <div
-        className="pointer-events-none absolute -right-40 top-1/4 size-[42rem] rounded-full opacity-40 blur-[120px]"
-        style={{ background: "radial-gradient(circle, var(--glow), transparent 70%)" }}
-        aria-hidden
-      />
+    <section className="shell pt-36 pb-16 md:pt-44 md:pb-24">
+      <div className="max-w-3xl">
+        <motion.p {...rise(0)} className="mb-8 flex items-center gap-2.5 label">
+          <span className="relative flex size-1.5">
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-signal-green opacity-60" />
+            <span className="relative inline-flex size-1.5 rounded-full bg-signal-green" />
+          </span>
+          Available for select projects · 2026
+        </motion.p>
 
-      {/* Desktop engine — right-weighted background */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 hidden w-[60%] lg:block" aria-hidden>
-        <div className="absolute inset-0 z-10 bg-gradient-to-r from-background via-background/40 to-transparent" />
-        <EngineViewport active={active} />
-      </div>
-
-      <div className="shell relative z-20 w-full">
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12">
-          <div className="lg:col-span-7">
-            <motion.div
-              initial={reduced ? false : { opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              className="mb-7 flex flex-wrap items-center gap-4"
-            >
-              <span className="label text-faint">
-                {profile.location} · {profile.timezone}
-              </span>
-              <span className="h-3 w-px bg-border-strong" />
-              <StatusDot label={profile.hero.availability.label} />
-            </motion.div>
-
-            <MaskLines
-              as="h1"
-              trigger="mount"
-              delay={0.15}
-              lines={["I design the systems", "behind products people", "actually enjoy using."]}
-              className="text-balance text-[clamp(2.25rem,5.1vw,4.25rem)] font-medium leading-[1.02] tracking-[-0.03em] text-foreground"
-            />
-
-            <motion.p
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted"
-            >
-              {profile.hero.supporting}
-            </motion.p>
-
-            <motion.p
-              initial={reduced ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.68 }}
-              className="mt-5 flex items-center gap-2 font-mono text-xs text-faint"
-            >
-              <span aria-hidden className="text-accent">
-                {"//"}
-              </span>
-              {profile.hero.personalityLine}
-            </motion.p>
-
-            <motion.div
-              initial={reduced ? false : { opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.78, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-9 flex flex-wrap items-center gap-3"
-            >
-              <ButtonLink href={profile.hero.primaryCta.href} size="lg" withArrow data-cursor="Work">
-                {profile.hero.primaryCta.label}
-              </ButtonLink>
-              <ButtonLink
-                href={profile.hero.secondaryCta.href}
-                variant="secondary"
-                size="lg"
-              >
-                {profile.hero.secondaryCta.label}
-              </ButtonLink>
-            </motion.div>
-
-            {/* Mobile engine viewport */}
-            <div className="mt-12 lg:hidden">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border bg-surface/40">
-                <div className="absolute left-3 top-3 z-10 label text-faint">
-                  Product Engine
-                </div>
-                <EngineViewport active={active} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Floating scroll cue — centered */}
-      <motion.div
-        aria-hidden
-        initial={reduced ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.1 }}
-        className="pointer-events-none absolute inset-x-0 bottom-7 z-20 flex justify-center"
-      >
-        <motion.span
-          animate={reduced ? undefined : { y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="flex size-10 items-center justify-center rounded-full border border-border-strong/60 bg-surface/25 text-faint backdrop-blur-sm"
+        <motion.h1
+          {...rise(0.06)}
+          className="text-balance text-[clamp(2.15rem,5.4vw,3.75rem)] font-medium leading-[1.06] tracking-[-0.032em] text-foreground"
         >
-          <ArrowDown className="size-4" />
-        </motion.span>
-      </motion.div>
+          I design and engineer intelligent software.
+        </motion.h1>
 
-      {/* Subtle systems label — right */}
-      <div className="shell pointer-events-none absolute inset-x-0 bottom-6 z-10 hidden justify-end lg:flex">
-        <div className="text-right">
-          <p className="label text-faint/80">SYS.01 · PRODUCT ENGINE</p>
-          <p className="label mt-1 text-faint/50">17.83°S · 31.05°E · HARARE</p>
-        </div>
+        <motion.p
+          {...rise(0.14)}
+          className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted"
+        >
+          Sean Muchenje — a software designer and engineer based in Harare,
+          Zimbabwe. I work across product design, full-stack engineering and AI
+          systems, taking complex ideas from first sketch to a shipped,
+          resilient product.
+        </motion.p>
+
+        <motion.p {...rise(0.2)} className="mt-5 font-mono text-[0.8125rem] text-faint">
+          <span className="text-accent">{"// "}</span>
+          {profile.hero.personalityLine}
+        </motion.p>
+
+        <motion.div {...rise(0.28)} className="mt-10 flex flex-wrap items-center gap-3">
+          <Link
+            href="/work"
+            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform duration-300 ease-out-expo hover:-translate-y-0.5"
+          >
+            Selected work
+            <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
+          <Link
+            href="/contact"
+            className="inline-flex items-center rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 hover:bg-surface-muted"
+          >
+            Get in touch
+          </Link>
+        </motion.div>
       </div>
-
-      {/* Screen-reader description of the interactive scene */}
-      <p className="sr-only">
-        An interactive visualisation titled the Product Engine shows a digital
-        system assembling from three layers — interface, logic and data, and
-        infrastructure — with user, database, API, AI, payment and automation
-        nodes connected by pathways along which data signals travel.
-      </p>
     </section>
   );
 }
