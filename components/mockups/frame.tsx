@@ -21,6 +21,7 @@ export function DashboardShell({
   product,
   icon: Icon,
   accent = "var(--accent)",
+  accentInk = "#ffffff",
   nav,
   breadcrumb,
   pageTitle,
@@ -28,10 +29,13 @@ export function DashboardShell({
   account = { name: "Sean M.", role: "Operations" },
   children,
   className,
+  vars,
 }: {
   product: string;
   icon: LucideIcon;
   accent?: string;
+  /** Text/icon colour sitting on the accent (for pale accents like lime). */
+  accentInk?: string;
   nav: ShellNavItem[];
   breadcrumb?: string;
   pageTitle: string;
@@ -39,6 +43,9 @@ export function DashboardShell({
   account?: { name: string; role: string };
   children: React.ReactNode;
   className?: string;
+  /** Optional per-product palette override (CSS token vars) so a mockup can wear
+   *  its real product's theme, e.g. Msasa's dark forest-green. */
+  vars?: Record<string, string>;
 }) {
   return (
     <div
@@ -46,14 +53,14 @@ export function DashboardShell({
         "flex overflow-hidden rounded-xl border border-border bg-surface-raised shadow-raised",
         className,
       )}
-      style={{ ["--pj" as string]: accent } as React.CSSProperties}
+      style={{ ["--pj" as string]: accent, ...vars } as React.CSSProperties}
     >
       {/* Sidebar */}
       <aside className="hidden w-40 shrink-0 flex-col border-r border-border bg-surface lg:flex xl:w-44">
         <div className="flex items-center gap-2 border-b border-border px-3 py-3">
           <span
-            className="flex size-6 items-center justify-center rounded-md text-white"
-            style={{ background: accent }}
+            className="flex size-6 items-center justify-center rounded-md"
+            style={{ background: accent, color: accentInk }}
           >
             <Icon className="size-3.5" />
           </span>
@@ -130,10 +137,13 @@ export function DashboardShell({
 export function ShellButton({
   children,
   accent = "var(--pj, var(--accent))",
+  ink = "#ffffff",
   variant = "solid",
 }: {
   children: React.ReactNode;
   accent?: string;
+  /** Text/icon colour on the solid fill (for pale accents like lime). */
+  ink?: string;
   variant?: "solid" | "ghost";
 }) {
   if (variant === "ghost") {
@@ -145,8 +155,8 @@ export function ShellButton({
   }
   return (
     <span
-      className="inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-[0.6875rem] font-semibold text-white"
-      style={{ background: accent }}
+      className="inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-[0.6875rem] font-semibold"
+      style={{ background: accent, color: ink }}
     >
       {children}
     </span>
