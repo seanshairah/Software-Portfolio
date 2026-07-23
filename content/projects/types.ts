@@ -9,6 +9,7 @@ export type SignatureInteraction =
 export type MockupPreset =
   | "logistics"
   | "housing"
+  | "blessbri"
   | "kinos"
   | "transport"
   | "farming"

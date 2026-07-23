@@ -5,6 +5,7 @@ import { kinos } from "./kinos";
 import { safeTransport } from "./safe-transport";
 import { smartFarming } from "./smart-farming";
 import { paymentArchitecture } from "./payment-architecture";
+import { blessbri } from "./blessbri";
 
 export const projects: Project[] = [
   frazierLogistics,
@@ -13,6 +14,7 @@ export const projects: Project[] = [
   safeTransport,
   smartFarming,
   paymentArchitecture,
+  blessbri,
 ].sort((a, b) => a.order - b.order);
 
 export const featuredProjects = projects.filter((p) => p.featured);

@@ -36,6 +36,7 @@ import {
 } from "./frame";
 import { LogisticsMockup } from "./logistics";
 import { HousingMockup } from "./housing";
+import { BlessBriMockup } from "./blessbri";
 import { KinosMockup } from "./kinos";
 import { FarmingMockup } from "./farming";
 import { TransportMockup } from "./transport";
@@ -701,6 +702,7 @@ export const projectScreens: Record<MockupPreset, Screen[]> = {
     { label: "Rooms & occupancy", node: <IvyRoomsScreen /> },
     { label: "Payments · EcoCash", node: <IvyPaymentsScreen /> },
   ],
+  blessbri: [{ label: "Residences", node: <BlessBriMockup /> }],
   kinos: [
     { label: "Daily Brief", node: <KinosMockup /> },
     { label: "A person · Gogo", node: <KinosPersonScreen /> },

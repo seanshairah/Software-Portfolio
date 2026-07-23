@@ -5,6 +5,7 @@ export const smartFarming: Project = {
   featured: false,
   title: "Msasa Farm ERP",
   slug: "smart-farming",
+  liveUrl: "https://farming-erp.vercel.app",
   category: "Farm ERP · Operations",
   industry: "Commercial Agriculture · Zimbabwe",
   year: "2024",
