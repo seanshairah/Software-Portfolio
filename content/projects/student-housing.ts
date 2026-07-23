@@ -3,25 +3,25 @@ import type { Project } from "./types";
 export const studentHousing: Project = {
   order: 2,
   featured: true,
-  title: "Student Housing Management Platform",
+  title: "Ivy House Student Management",
   slug: "student-housing",
-  category: "Marketplace · Management",
-  industry: "Property · Student Accommodation",
+  category: "Student Housing · Management",
+  industry: "Student Accommodation",
   year: "2025",
   role: "Product design · Full-stack development",
-  status: "Prototype",
-  accent: "#1f9e6b",
+  status: "Live",
+  accent: "#157857",
   signature: "booking-lifecycle",
   mockup: "housing",
 
   tagline:
-    "From searching for a room to signing in — the full student accommodation lifecycle in one place.",
+    "Ivy House — verified student living beside Chinhoyi's CUT campus, from room search to move-in.",
   openingStatement:
-    "Finding student housing is a scramble of noticeboards, WhatsApp groups and cash deposits. This platform gives students a real way to discover, apply for and pay for a room, and gives property owners the tools to manage occupancy without a filing cabinet.",
+    "Finding student housing near campus is a scramble of noticeboards, WhatsApp groups and cash deposits. Ivy House gives students a real way to discover, apply for and pay for a room — a six-minute walk from the CUT main campus in Chinhoyi — and gives the owner and caretakers the tools to run the residence without a filing cabinet.",
   summary:
-    "A responsive property and student-accommodation management system covering discovery, applications, approvals, payments, and separate dashboards for students and owners.",
+    "A student-accommodation management system for the Ivy House residence covering room discovery, applications, approvals, EcoCash payments, and separate portals for owners, caretakers and students.",
   context:
-    "Around most campuses, off-campus housing is informal and opaque. Students struggle to find verified rooms; owners struggle to track who has applied, who has paid and which rooms are free. Both sides lose time and trust.",
+    "Around most campuses, off-campus housing is informal and opaque. Students struggle to find verified rooms; owners struggle to track who has applied, who has paid and which rooms are free. Ivy House is a purpose-built residence that needed one system to run discovery, applications, occupancy and rent for real students at CUT.",
   challenge:
     "Serve two very different users — a student booking a room and an owner running a property — in one product, while keeping availability, applications and payments perfectly in sync.",
   solution:
@@ -62,12 +62,12 @@ export const studentHousing: Project = {
     "Owner watches occupancy and payments update on their dashboard",
   ],
   workflows: [
-    "Property & room discovery",
-    "Availability checking",
-    "Application submission",
-    "Owner approval",
-    "Payment & confirmation",
-    "Occupancy tracking & notifications",
+    "Search rooms by type & price",
+    "Apply online (room held)",
+    "Owner review & approval",
+    "EcoCash payment & invoice",
+    "Move-in & occupancy",
+    "Rent, arrears & statements",
   ],
   features: [
     "Searchable property discovery with real filters",

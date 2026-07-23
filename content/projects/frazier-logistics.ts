@@ -5,19 +5,19 @@ export const frazierLogistics: Project = {
   featured: true,
   title: "Frazier Logistics Platform",
   slug: "frazier-logistics",
-  category: "Operations Platform",
-  industry: "Logistics · Customs · Freight",
+  category: "Customs & Freight Platform",
+  industry: "Customs Clearing · Freight Forwarding",
   year: "2025",
   role: "Product design · Systems architecture · Full-stack development",
-  status: "In development",
-  accent: "#ff6a3d",
+  status: "Live",
+  accent: "#5D3BAD",
   signature: "logistics-workflow",
   mockup: "logistics",
 
   tagline:
-    "A multi-role platform that carries a shipment from supplier request all the way to payment.",
+    "An AEO-accredited customs clearing and freight platform — from quote to cleared delivery.",
   openingStatement:
-    "Freight moves through a dozen hands before it is paid for. Frazier turns that scattered chain — suppliers, transporters, customs, finance — into one operational system where every role sees exactly what it needs, and nothing falls through the gaps.",
+    "As one of Zimbabwe's few AEO-accredited clearing agents, Frazier moves freight through a dozen hands — customers, clerks, chief customs, chief logistics, transporters, finance — before it clears the border and gets paid for. The platform turns that scattered chain into one operational system where every role sees exactly what it needs, and nothing falls through the gaps.",
   summary:
     "A logistics, customs, transporter, supplier and finance platform that models the full life of a job — from request and truck nomination to proof of delivery, customs calculation, invoicing and payment vouchers.",
   context:
@@ -67,12 +67,12 @@ export const frazierLogistics: Project = {
     "Payment voucher is approved → job is reconciled and closed",
   ],
   workflows: [
-    "Job creation & truck request",
-    "Transporter nomination & award",
-    "Loading confirmation",
-    "Delivery & proof of delivery",
-    "Documentation & customs calculation",
-    "Invoicing & payment vouchers",
+    "Quote request & quotation",
+    "Payment & shipment creation",
+    "Dispatch & transporter assignment",
+    "En route & border checkpoints",
+    "Customs processing & clearance",
+    "Delivery, POD & reconciliation",
   ],
   features: [
     "Single job object with a full event timeline",

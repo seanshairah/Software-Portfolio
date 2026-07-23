@@ -72,7 +72,7 @@ export function MobileMenu({
           aria-label="Site menu"
         >
           <div className="shell flex h-16 shrink-0 items-center justify-between border-b border-border">
-            <Wordmark compact />
+            <Wordmark />
             <button
               ref={closeRef}
               type="button"

@@ -15,6 +15,7 @@ export type MockupPreset =
   | "payments";
 
 export type ProjectStatus =
+  | "Live"
   | "Concept"
   | "In development"
   | "Prototype"

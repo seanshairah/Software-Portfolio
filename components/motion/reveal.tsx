@@ -129,48 +129,53 @@ export function MaskLines({
   lines,
   className,
   lineClassName,
-  as: Tag = "h2",
+  as = "h2",
   delay = 0,
   trigger = "inView",
 }: {
   lines: string[];
   className?: string;
   lineClassName?: string;
-  as?: "h1" | "h2" | "h3" | "p";
+  as?: "h1" | "h2" | "h3" | "p" | "span";
   delay?: number;
   /** "mount" plays immediately (hero/above-the-fold); "inView" waits for scroll. */
   trigger?: "inView" | "mount";
 }) {
   const reduced = useReducedMotion();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const MotionTag = (motion as any)[as];
+
+  // The stable parent is the scroll trigger — NOT the translated child. Observing
+  // a transformed element (the old approach) failed to fire on tall mobile
+  // sections, leaving headlines invisible. Children animate via variants.
+  const containerProps = reduced
+    ? { animate: "show" as const }
+    : trigger === "mount"
+      ? { initial: "hidden" as const, animate: "show" as const }
+      : {
+          initial: "hidden" as const,
+          whileInView: "show" as const,
+          viewport: { once: true, margin: "-10% 0px -10% 0px" } as const,
+        };
+
+  const container: Variants = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.09, delayChildren: delay } },
+  };
+  const child: Variants = {
+    hidden: { y: reduced ? "0%" : "110%" },
+    show: { y: "0%", transition: { duration: 0.9, ease: EASE } },
+  };
 
   return (
-    <Tag className={className}>
-      {lines.map((line, i) => {
-        const anim = reduced
-          ? { initial: false as const, animate: { y: "0%" } }
-          : trigger === "mount"
-            ? { initial: { y: "110%" }, animate: { y: "0%" } }
-            : {
-                initial: { y: "110%" },
-                whileInView: { y: "0%" },
-                viewport: { once: true, margin: "-12% 0px" } as const,
-              };
-        return (
-          <span key={i} className="block overflow-hidden pb-[0.08em]">
-            <motion.span
-              className={cn("block", lineClassName)}
-              {...anim}
-              transition={
-                reduced
-                  ? { duration: 0 }
-                  : { duration: 0.9, ease: EASE, delay: delay + i * 0.09 }
-              }
-            >
-              {line}
-            </motion.span>
-          </span>
-        );
-      })}
-    </Tag>
+    <MotionTag className={className} variants={container} {...containerProps}>
+      {lines.map((line, i) => (
+        <span key={i} className="block overflow-hidden pb-[0.08em]">
+          <motion.span className={cn("block", lineClassName)} variants={child}>
+            {line}
+          </motion.span>
+        </span>
+      ))}
+    </MotionTag>
   );
 }

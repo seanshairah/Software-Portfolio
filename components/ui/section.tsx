@@ -40,6 +40,9 @@ export function Section({
     <Comp
       id={id}
       data-world={world}
+      // Dark-world sections signal the floating navbar to switch to its
+      // light-on-dark treatment while they sit beneath it.
+      data-nav-dark={world === "dark" ? "true" : undefined}
       className={cn(
         "relative",
         world === "dark" && "bg-background text-foreground",
