@@ -3,7 +3,8 @@ import { cn } from "@/lib/utils";
 /**
  * Static, accessible stand-in for the Product Engine. Rendered for
  * lightweight-tier / no-WebGL / reduced-motion visitors. Communicates the same
- * idea — layered system, nodes, connectors, signals — in plain SVG.
+ * idea — a luminous core inside concentric system orbits, with nodes and data
+ * signals — in plain SVG.
  */
 export function WebGLFallback({
   className,
@@ -12,119 +13,122 @@ export function WebGLFallback({
   className?: string;
   animate?: boolean;
 }) {
-  // Three strata: interface, logic/data, infrastructure.
-  const layers = [
-    { y: 70, label: "Interface", nodes: [90, 190, 300, 410, 520, 610] },
-    { y: 180, label: "Logic · Data · AI", nodes: [120, 230, 340, 450, 560] },
-    { y: 290, label: "Infrastructure", nodes: [90, 200, 320, 440, 560, 640] },
+  const cx = 350;
+  const cy = 230;
+
+  // Tilted concentric orbits (interface · logic/data · infrastructure).
+  const orbits = [
+    { rx: 120, ry: 44, label: "Interface" },
+    { rx: 210, ry: 78, label: "Logic · Data · AI" },
+    { rx: 300, ry: 112, label: "Infrastructure" },
   ];
-  const accent = new Set(["0-2", "1-1", "1-3", "2-4"]);
-  const signal = new Set(["0-4", "2-1"]);
+
+  // Nodes riding each orbit; a few "live" ones glow.
+  const nodesFor = (rx: number, ry: number, count: number, live: number[]) =>
+    Array.from({ length: count }, (_, i) => {
+      const a = (i / count) * Math.PI * 2 + rx * 0.01;
+      return {
+        x: cx + Math.cos(a) * rx,
+        y: cy + Math.sin(a) * ry,
+        live: live.includes(i),
+        i,
+      };
+    });
+
+  const rings = [
+    { ...orbits[0], nodes: nodesFor(120, 44, 5, [1]) },
+    { ...orbits[1], nodes: nodesFor(210, 78, 7, [2, 5]) },
+    { ...orbits[2], nodes: nodesFor(300, 112, 9, [0, 6]) },
+  ];
+
+  // Ellipse path (for the visible ring + a travelling signal to follow).
+  const ellipsePath = (rx: number, ry: number) =>
+    `M ${cx - rx},${cy} a ${rx},${ry} 0 1,0 ${rx * 2},0 a ${rx},${ry} 0 1,0 ${-rx * 2},0`;
 
   return (
     <svg
-      viewBox="0 0 700 360"
+      viewBox="0 0 700 460"
       className={cn("h-full w-full", className)}
       role="img"
-      aria-label="The Product Engine — a layered system diagram of interface, logic and infrastructure connected by data pathways."
+      aria-label="The Product Engine — a luminous core inside concentric system orbits (interface, logic and infrastructure), with nodes and data signals travelling along them."
     >
       <defs>
-        <linearGradient id="pe-fade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#3c7dff" stopOpacity="0.5" />
-          <stop offset="100%" stopColor="#3c7dff" stopOpacity="0.05" />
-        </linearGradient>
+        <radialGradient id="pe-core" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#dcecff" stopOpacity="0.95" />
+          <stop offset="35%" stopColor="#3c7dff" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="#3c7dff" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="pe-node" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#5eead4" stopOpacity="0" />
+        </radialGradient>
       </defs>
 
-      {/* Vertical connectors between layers */}
-      {layers.slice(0, -1).map((layer, li) =>
-        layer.nodes.map((x, ni) => {
-          const next = layers[li + 1].nodes;
-          const tx = next[Math.min(ni, next.length - 1)];
-          return (
-            <line
-              key={`v-${li}-${ni}`}
-              x1={x}
-              y1={layer.y}
-              x2={tx}
-              y2={layers[li + 1].y}
-              stroke="#5b6472"
-              strokeOpacity="0.3"
-              strokeWidth="1"
-            />
-          );
-        }),
-      )}
+      {/* Orbits */}
+      {rings.map((ring, li) => (
+        <ellipse
+          key={`o-${li}`}
+          cx={cx}
+          cy={cy}
+          rx={ring.rx}
+          ry={ring.ry}
+          fill="none"
+          stroke="#3c7dff"
+          strokeOpacity={0.24}
+          strokeWidth="1"
+        />
+      ))}
 
-      {/* Horizontal connectors within a layer */}
-      {layers.map((layer, li) =>
-        layer.nodes.slice(0, -1).map((x, ni) => (
-          <line
-            key={`h-${li}-${ni}`}
-            x1={x}
-            y1={layer.y}
-            x2={layer.nodes[ni + 1]}
-            y2={layer.y}
-            stroke="#5b6472"
-            strokeOpacity="0.25"
-            strokeWidth="1"
+      {/* Core glow + core */}
+      <circle cx={cx} cy={cy} r="90" fill="url(#pe-core)" />
+      <circle cx={cx} cy={cy} r="11" fill="#3c7dff">
+        {animate && (
+          <animate
+            attributeName="r"
+            values="10;12.5;10"
+            dur="3.2s"
+            repeatCount="indefinite"
           />
+        )}
+      </circle>
+      <circle cx={cx} cy={cy} r="5" fill="#dcecff" />
+
+      {/* Nodes */}
+      {rings.map((ring, li) =>
+        ring.nodes.map((n) => (
+          <g key={`n-${li}-${n.i}`}>
+            {n.live && <circle cx={n.x} cy={n.y} r="10" fill="url(#pe-node)" />}
+            <circle
+              cx={n.x}
+              cy={n.y}
+              r={n.live ? 3.6 : 2.4}
+              fill={n.live ? "#5eead4" : "#7f8ba3"}
+            >
+              {animate && n.live && (
+                <animate
+                  attributeName="fill-opacity"
+                  values="0.6;1;0.6"
+                  dur="2.8s"
+                  repeatCount="indefinite"
+                  begin={`${li * 0.4}s`}
+                />
+              )}
+            </circle>
+          </g>
         )),
       )}
 
-      {/* Nodes */}
-      {layers.map((layer, li) =>
-        layer.nodes.map((x, ni) => {
-          const id = `${li}-${ni}`;
-          const isAccent = accent.has(id);
-          const isSignal = signal.has(id);
-          return (
-            <g key={id}>
-              {(isAccent || isSignal) && (
-                <circle
-                  cx={x}
-                  cy={layer.y}
-                  r="9"
-                  fill={isSignal ? "#39ff88" : "#3c7dff"}
-                  fillOpacity="0.14"
-                />
-              )}
-              <circle
-                cx={x}
-                cy={layer.y}
-                r={isAccent || isSignal ? 4 : 3}
-                fill={isSignal ? "#39ff88" : isAccent ? "#3c7dff" : "#8a93a3"}
-              >
-                {animate && (isAccent || isSignal) && (
-                  <animate
-                    attributeName="fill-opacity"
-                    values="0.55;1;0.55"
-                    dur="2.6s"
-                    repeatCount="indefinite"
-                    begin={`${ni * 0.2}s`}
-                  />
-                )}
-              </circle>
-            </g>
-          );
-        }),
-      )}
-
-      {/* Layer labels */}
-      {layers.map((layer) => (
-        <text
-          key={layer.label}
-          x="8"
-          y={layer.y - 16}
-          className="fill-current"
-          fontSize="9"
-          fontFamily="var(--font-mono), monospace"
-          letterSpacing="1.5"
-          style={{ textTransform: "uppercase" }}
-          fill="#676d75"
-        >
-          {layer.label}
-        </text>
-      ))}
+      {/* Travelling data signals along the orbits */}
+      {animate &&
+        rings.map((ring, li) => (
+          <circle key={`s-${li}`} r="2.6" fill="#dcecff">
+            <animateMotion
+              dur={`${7 + li * 2.5}s`}
+              repeatCount="indefinite"
+              path={ellipsePath(ring.rx, ring.ry)}
+            />
+          </circle>
+        ))}
     </svg>
   );
 }
