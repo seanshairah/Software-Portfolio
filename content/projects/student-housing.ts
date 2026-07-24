@@ -5,6 +5,7 @@ export const studentHousing: Project = {
   featured: true,
   title: "Ivy House Student Management",
   slug: "student-housing",
+  liveUrl: "https://ivyproperties.co.zw",
   category: "Student Housing · Management",
   industry: "Student Accommodation",
   year: "2025",

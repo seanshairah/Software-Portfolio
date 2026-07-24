@@ -59,7 +59,7 @@ export default async function CaseStudyPage({
       <CaseHero project={project} />
 
       {/* Screens — the product, browsable. This is the case study's centrepiece. */}
-      <section className="shell -mt-8 pb-14 md:pb-20">
+      <section className="shell pb-14 md:pb-20">
         <Reveal y={36}>
           <ScreenSwitcher screens={screens} accent={a} />
         </Reveal>

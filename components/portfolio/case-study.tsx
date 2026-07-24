@@ -3,23 +3,15 @@ import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
+import { AppIcon } from "@/components/ui/app-icon";
 import { Eyebrow } from "@/components/ui/section";
 import { pad } from "@/lib/utils";
 
-/** Dark cinematic opener for a case study. */
+/** Calm opener for a case study — laid out like a product page: metadata,
+ *  the product's app icon, its name, then what it is. */
 export function CaseHero({ project }: { project: Project }) {
   return (
-    <header
-      data-world="dark"
-      data-nav-dark
-      className="relative overflow-hidden bg-background pt-36 pb-16 md:pt-44 md:pb-20"
-    >
-      <div className="pointer-events-none absolute inset-0 grid-lines opacity-40" aria-hidden />
-      <div
-        className="pointer-events-none absolute -top-32 right-0 size-[36rem] rounded-full opacity-40 blur-[130px]"
-        style={{ background: `radial-gradient(circle, ${project.accent}44, transparent 70%)` }}
-        aria-hidden
-      />
+    <header className="relative pt-36 pb-14 md:pt-44 md:pb-16">
       <div className="shell relative">
         <Reveal>
           <div className="flex flex-wrap items-center gap-3">
@@ -34,16 +26,39 @@ export function CaseHero({ project }: { project: Project }) {
           </div>
         </Reveal>
 
+        <Reveal delay={0.06}>
+          <AppIcon
+            accent={project.accent}
+            preset={project.mockup}
+            label={project.title}
+            className="mt-8 size-16 md:size-[4.5rem]"
+          />
+        </Reveal>
+
         <Reveal delay={0.1}>
-          <h1 className="mt-8 max-w-4xl text-balance text-[clamp(2.25rem,5.5vw,4.25rem)] font-medium leading-[1.0] tracking-[-0.03em] text-foreground">
+          <h1 className="mt-5 max-w-3xl text-balance text-[clamp(2rem,4.8vw,3.5rem)] font-medium leading-[1.03] tracking-[-0.03em] text-foreground">
             {project.title}
           </h1>
         </Reveal>
         <Reveal delay={0.18}>
-          <p className="mt-6 max-w-3xl text-pretty text-xl leading-relaxed text-muted">
+          <p className="mt-6 max-w-2xl text-pretty text-lg leading-relaxed text-muted md:text-xl">
             {project.openingStatement}
           </p>
         </Reveal>
+
+        {project.liveUrl && (
+          <Reveal delay={0.22}>
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group mt-7 inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform duration-300 ease-out-expo hover:-translate-y-0.5"
+            >
+              Visit live site
+              <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </Reveal>
+        )}
 
         <Reveal delay={0.26}>
           <dl className="mt-12 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-border pt-8 md:grid-cols-4">

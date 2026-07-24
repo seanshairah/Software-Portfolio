@@ -5,6 +5,7 @@ export const frazierLogistics: Project = {
   featured: true,
   title: "Frazier Logistics Platform",
   slug: "frazier-logistics",
+  liveUrl: "https://frazierlogistics.com",
   category: "Customs & Freight Platform",
   industry: "Customs Clearing · Freight Forwarding",
   year: "2025",

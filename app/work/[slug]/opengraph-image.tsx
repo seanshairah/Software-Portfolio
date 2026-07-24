@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import { projects, getProject } from "@/content/projects";
+import { PROJECT_GLYPHS, appIconGradient } from "@/components/ui/app-icon";
 
 export const alt = "Case study — Sean Muchenje";
 export const size = { width: 1200, height: 630 };
@@ -18,7 +19,8 @@ export default async function OgImage({
   const project = getProject(slug);
   const title = project?.title ?? "Case study";
   const category = project?.category ?? "Project";
-  const accent = project?.accent ?? "#3c7dff";
+  const accent = project?.accent ?? "#2c5fe0";
+  const glyph = project ? PROJECT_GLYPHS[project.mockup] : null;
 
   return new ImageResponse(
     (
@@ -29,23 +31,58 @@ export default async function OgImage({
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0b0c0e",
+          background: "#0a0a0b",
           padding: "72px",
           backgroundImage:
-            "linear-gradient(to right, rgba(247,245,239,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(247,245,239,0.06) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(237,237,236,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,237,236,0.05) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 14, color: "#9da4ad", fontSize: 22 }}>
-          <div style={{ width: 12, height: 12, borderRadius: 12, background: accent }} />
-          <span style={{ fontFamily: "monospace", textTransform: "uppercase", letterSpacing: 2 }}>
+        {/* Product app icon + category */}
+        <div style={{ display: "flex", alignItems: "center", gap: 22 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 96,
+              height: 96,
+              borderRadius: 24,
+              backgroundImage: appIconGradient(accent),
+              border: "1px solid rgba(255,255,255,0.22)",
+            }}
+          >
+            {glyph && (
+              <svg width="96" height="96" viewBox="0 0 100 100">
+                <g
+                  stroke="#fff"
+                  strokeWidth="6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                  opacity="0.97"
+                >
+                  {glyph}
+                </g>
+              </svg>
+            )}
+          </div>
+          <span
+            style={{
+              fontFamily: "monospace",
+              textTransform: "uppercase",
+              letterSpacing: 2,
+              color: "#a0a0a8",
+              fontSize: 22,
+            }}
+          >
             {category}
           </span>
         </div>
 
         <div
           style={{
-            color: "#f7f5ef",
+            color: "#ededec",
             fontSize: 76,
             fontWeight: 600,
             lineHeight: 1.0,
@@ -56,7 +93,15 @@ export default async function OgImage({
           {title}
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", color: "#9da4ad", fontSize: 22 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            color: "#a0a0a8",
+            fontSize: 22,
+          }}
+        >
           <span>Sean Muchenje · Case study</span>
           <span style={{ fontFamily: "monospace" }}>HARARE, ZIMBABWE</span>
         </div>

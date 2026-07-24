@@ -17,6 +17,7 @@ export function SelectedWork() {
     year: p.year,
     status: p.status,
     accent: p.accent,
+    preset: p.mockup,
     preview: <ProjectMockup preset={p.mockup} />,
   }));
 

@@ -115,8 +115,8 @@ export default function AboutPage() {
           ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-4">
-          <Link href="/services" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground">
-            How I can help
+          <Link href="/contact" className="group inline-flex items-center gap-2 text-sm font-medium text-foreground">
+            Start a project
             <ArrowUpRight className="size-4 text-accent transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
           <Link href="/work" className="group inline-flex items-center gap-2 text-sm font-medium text-muted hover:text-foreground">

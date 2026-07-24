@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt =
-  "Sean Muchenje — Software Designer & Full-Stack Product Developer";
+export const alt = "Sean Muchenje — Software Designer & Engineer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -15,30 +14,23 @@ export default function OgImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#0b0c0e",
+          background: "#0a0a0b",
           padding: "72px",
           backgroundImage:
-            "linear-gradient(to right, rgba(247,245,239,0.06) 1px, transparent 1px), linear-gradient(to bottom, rgba(247,245,239,0.06) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(237,237,236,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(237,237,236,0.05) 1px, transparent 1px)",
           backgroundSize: "64px 64px",
         }}
       >
+        {/* Brand: system line + wordmark */}
         <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 34,
-              height: 34,
-              border: "3px solid #f7f5ef",
-              borderRadius: 8,
-              position: "relative",
-            }}
-          >
-            <div style={{ position: "absolute", left: -14, width: 7, height: 7, borderRadius: 7, background: "#3c7dff" }} />
-            <div style={{ position: "absolute", right: -14, width: 7, height: 7, borderRadius: 7, background: "#3c7dff" }} />
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <div style={{ width: 9, height: 9, borderRadius: 9, background: "#6a90f7" }} />
+            <div style={{ width: 9, height: 3, background: "rgba(237,237,236,0.45)" }} />
+            <div style={{ width: 34, height: 34, border: "3px solid #ededec", borderRadius: 8 }} />
+            <div style={{ width: 9, height: 3, background: "rgba(237,237,236,0.45)" }} />
+            <div style={{ width: 9, height: 9, borderRadius: 9, background: "#6a90f7" }} />
           </div>
-          <div style={{ color: "#f7f5ef", fontSize: 26, fontWeight: 500 }}>
+          <div style={{ color: "#ededec", fontSize: 26, fontWeight: 500, marginLeft: 4 }}>
             Sean Muchenje
           </div>
         </div>
@@ -46,15 +38,15 @@ export default function OgImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              color: "#f7f5ef",
-              fontSize: 68,
+              color: "#ededec",
+              fontSize: 70,
               fontWeight: 600,
               lineHeight: 1.02,
               letterSpacing: "-0.03em",
-              maxWidth: 940,
+              maxWidth: 960,
             }}
           >
-            I design the systems behind intelligent digital products.
+            I design and engineer intelligent software.
           </div>
         </div>
 
@@ -63,12 +55,12 @@ export default function OgImage() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            color: "#9da4ad",
+            color: "#a0a0a8",
             fontSize: 22,
           }}
         >
-          <div style={{ display: "flex", gap: 16, alignItems: "center" }}>
-            <div style={{ width: 10, height: 10, borderRadius: 10, background: "#39ff88" }} />
+          <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+            <div style={{ width: 10, height: 10, borderRadius: 10, background: "#34d68b" }} />
             <span>Software Designer · Full-Stack Product Developer</span>
           </div>
           <span style={{ fontFamily: "monospace" }}>HARARE, ZIMBABWE</span>

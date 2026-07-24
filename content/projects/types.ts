@@ -9,6 +9,7 @@ export type SignatureInteraction =
 export type MockupPreset =
   | "logistics"
   | "housing"
+  | "blessbri"
   | "kinos"
   | "transport"
   | "farming"
@@ -75,6 +76,9 @@ export interface Project {
   designDecisions: string[];
   responsive: string;
   challenges: NamedBlock[];
+
+  // Live product URL — only for shipped systems with a public site.
+  liveUrl?: string;
 
   // Optional / forward-looking (framed honestly)
   security?: string[];
