@@ -64,7 +64,7 @@ export function ScreenSwitcher({
         </div>
       )}
 
-      <div className="relative">
+      <div className="relative overflow-x-clip">
         <div
           className="pointer-events-none absolute -inset-8 -z-10 rounded-[2.5rem] opacity-40 blur-3xl"
           style={{ background: `radial-gradient(50% 50% at 50% 30%, ${accent}22, transparent)` }}

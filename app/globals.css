@@ -164,22 +164,6 @@
     text-wrap: balance;
   }
 
-  /* Custom cursor: hide the native cursor only after the JS cursor mounts, so
-     no-JS and keyboard users always keep a usable pointer. Text fields keep a
-     caret. */
-  .has-custom-cursor,
-  .has-custom-cursor a,
-  .has-custom-cursor button,
-  .has-custom-cursor [role="button"] {
-    cursor: none;
-  }
-  .has-custom-cursor input,
-  .has-custom-cursor textarea,
-  .has-custom-cursor select,
-  .has-custom-cursor [contenteditable="true"] {
-    cursor: auto;
-  }
-
   /* Skip link — visible on focus */
   .skip-link {
     position: fixed;
