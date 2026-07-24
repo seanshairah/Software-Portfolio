@@ -16,14 +16,23 @@ export function GalleryView() {
   const reduced = useReducedMotion();
 
   const shown = useMemo(
-    () => (filter === "All" ? galleryItems : galleryItems.filter((i) => i.kind === filter)),
+    () =>
+      filter === "All"
+        ? galleryItems
+        : filter === "Motion"
+          ? galleryItems.filter((i) => i.type === "video")
+          : galleryItems.filter((i) => i.kind === filter),
     [filter],
   );
-  const counts = useMemo(() => {
-    const c: Record<string, number> = { All: galleryItems.length };
-    for (const f of galleryFilters) if (f !== "All") c[f] = galleryItems.filter((i) => i.kind === f).length;
-    return c;
-  }, []);
+  const counts = useMemo<Record<string, number>>(
+    () => ({
+      All: galleryItems.length,
+      Brand: galleryItems.filter((i) => i.kind === "Brand").length,
+      Interface: galleryItems.filter((i) => i.kind === "Interface").length,
+      Motion: galleryItems.filter((i) => i.type === "video").length,
+    }),
+    [],
+  );
 
   const openAt = (i: number) => setActive(i);
   const close = () => setActive(null);
