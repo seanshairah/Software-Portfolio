@@ -6,6 +6,7 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: "Work", href: "/work", description: "Selected work & case studies" },
+  { label: "Gallery", href: "/gallery", description: "Design, brand & motion" },
   { label: "Lab", href: "/playground", description: "Experiments & prototypes" },
   { label: "About", href: "/about", description: "Background & approach" },
   { label: "Contact", href: "/contact", description: "Start a project" },
@@ -16,6 +17,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     title: "Explore",
     items: [
       { label: "Selected Work", href: "/work" },
+      { label: "Gallery", href: "/gallery" },
       { label: "Lab", href: "/playground" },
       { label: "About", href: "/about" },
       { label: "Contact", href: "/contact" },
