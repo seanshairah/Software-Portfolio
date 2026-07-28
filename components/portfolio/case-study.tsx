@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import type { Project } from "@/content/projects";
 import { Reveal } from "@/components/motion/reveal";
 import { Badge } from "@/components/ui/badge";
-import { AppIcon } from "@/components/ui/app-icon";
+import { ProjectIcon } from "@/components/ui/project-icon";
 import { Eyebrow } from "@/components/ui/section";
 import { pad } from "@/lib/utils";
 
@@ -27,9 +27,9 @@ export function CaseHero({ project }: { project: Project }) {
         </Reveal>
 
         <Reveal delay={0.06}>
-          <AppIcon
-            accent={project.accent}
+          <ProjectIcon
             preset={project.mockup}
+            accent={project.accent}
             label={project.title}
             className="mt-8 size-16 md:size-[4.5rem]"
           />

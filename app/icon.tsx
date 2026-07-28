@@ -3,8 +3,9 @@ import { ImageResponse } from "next/og";
 export const size = { width: 48, height: 48 };
 export const contentType = "image/png";
 
-/** Favicon — the brand's "system line" (a signal enters a processing core and
- *  emerges as a resolved product) on a rounded near-black tile. */
+const cell = (o = 1) => ({ width: 9, height: 9, borderRadius: 3, background: `rgba(255,255,255,${o})` });
+
+/** Flat, simple favicon — a small grid on a solid accent tile (the wall of work). */
 export default function Icon() {
   return new ImageResponse(
     (
@@ -15,17 +16,19 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0b0b0d",
-          backgroundImage: "linear-gradient(150deg,#1c1c21,#0a0a0b)",
+          background: "#2c5fe0",
           borderRadius: 11,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <div style={{ width: 5, height: 5, borderRadius: 5, background: "#6a90f7" }} />
-          <div style={{ width: 3, height: 2.5, background: "rgba(242,242,240,0.55)" }} />
-          <div style={{ width: 20, height: 20, border: "3px solid #f2f2f0", borderRadius: 5 }} />
-          <div style={{ width: 3, height: 2.5, background: "rgba(242,242,240,0.55)" }} />
-          <div style={{ width: 5, height: 5, borderRadius: 5, background: "#6a90f7" }} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
+          <div style={{ display: "flex", gap: 5 }}>
+            <div style={cell()} />
+            <div style={cell()} />
+          </div>
+          <div style={{ display: "flex", gap: 5 }}>
+            <div style={cell()} />
+            <div style={cell(0.5)} />
+          </div>
         </div>
       </div>
     ),

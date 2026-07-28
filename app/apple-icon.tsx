@@ -3,8 +3,9 @@ import { ImageResponse } from "next/og";
 export const size = { width: 180, height: 180 };
 export const contentType = "image/png";
 
-/** Apple touch icon — full-bleed (iOS applies its own squircle mask). The full
- *  "system line": a signal enters a processing core and resolves to a product. */
+const cell = (o = 1) => ({ width: 34, height: 34, borderRadius: 11, background: `rgba(255,255,255,${o})` });
+
+/** Flat Apple touch icon — full-bleed accent tile with the grid mark (iOS masks). */
 export default function AppleIcon() {
   return new ImageResponse(
     (
@@ -15,16 +16,18 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#0b0b0d",
-          backgroundImage: "linear-gradient(150deg,#1e1e24,#09090a)",
+          background: "#2c5fe0",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <div style={{ width: 17, height: 17, borderRadius: 17, background: "#6a90f7" }} />
-          <div style={{ width: 15, height: 6, background: "rgba(242,242,240,0.5)" }} />
-          <div style={{ width: 66, height: 66, border: "9px solid #f2f2f0", borderRadius: 18 }} />
-          <div style={{ width: 15, height: 6, background: "rgba(242,242,240,0.5)" }} />
-          <div style={{ width: 17, height: 17, borderRadius: 17, background: "#6a90f7" }} />
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ display: "flex", gap: 16 }}>
+            <div style={cell()} />
+            <div style={cell()} />
+          </div>
+          <div style={{ display: "flex", gap: 16 }}>
+            <div style={cell()} />
+            <div style={cell(0.5)} />
+          </div>
         </div>
       </div>
     ),
