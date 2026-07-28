@@ -6,7 +6,6 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   { label: "Work", href: "/work", description: "Selected work & case studies" },
-  { label: "Gallery", href: "/gallery", description: "Design, brand & motion" },
   { label: "Lab", href: "/playground", description: "Experiments & prototypes" },
   { label: "About", href: "/about", description: "Background & approach" },
   { label: "Contact", href: "/contact", description: "Start a project" },

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { projects } from "@/content/projects";
 import { ProjectMockup } from "@/components/mockups";
-import { AppIcon } from "@/components/ui/app-icon";
+import { ProjectIcon } from "@/components/ui/project-icon";
 import { Reveal } from "@/components/motion/reveal";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -18,9 +18,9 @@ export function WorkIndex() {
             <article className="border-t border-border pt-8 md:pt-10">
               <div className="mb-6 grid grid-cols-1 gap-x-8 gap-y-4 md:grid-cols-[1fr_auto] md:items-end">
                 <div className="flex items-start gap-4 md:gap-5">
-                  <AppIcon
-                    accent={p.accent}
+                  <ProjectIcon
                     preset={p.mockup}
+                    accent={p.accent}
                     label={p.title}
                     className="mt-0.5 size-12 md:size-[3.25rem]"
                   />
