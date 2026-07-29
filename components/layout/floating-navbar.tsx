@@ -129,7 +129,7 @@ export function FloatingNavbar() {
             </nav>
 
             <div className="flex items-center gap-2">
-              <ThemeSwitcher className="hidden sm:inline-flex" />
+              <ThemeSwitcher />
               <ButtonLink
                 href="/contact"
                 size="sm"

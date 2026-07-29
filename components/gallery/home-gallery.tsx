@@ -3,11 +3,15 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { X, ArrowLeft, ArrowRight } from "lucide-react";
+import { X, ArrowLeft, ArrowRight, Plus } from "lucide-react";
 import { galleryItems, type GalleryItem } from "@/content/gallery";
 import { GalleryVideo } from "./gallery-video";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/** On phones the full wall is a lot to scroll — lead with a curated handful and
+ *  let the visitor open the rest. Desktop always shows everything. */
+const MOBILE_PREVIEW = 6;
 
 /** Measure a container's width, reactively. */
 function useContainerWidth() {
@@ -52,17 +56,26 @@ function justify(items: GalleryItem[], width: number, target: number): Row[] {
 export function HomeGallery() {
   const [ref, width] = useContainerWidth();
   const [active, setActive] = useState<number | null>(null);
+  const [expanded, setExpanded] = useState(false);
   const reduced = useReducedMotion();
+
+  const isMobile = width > 0 && width < 640;
+  const collapsed = isMobile && !expanded;
+  const shown = useMemo(
+    () => (collapsed ? galleryItems.slice(0, MOBILE_PREVIEW) : galleryItems),
+    [collapsed],
+  );
+  const hiddenCount = galleryItems.length - MOBILE_PREVIEW;
 
   const target = width < 560 ? 148 : width < 900 ? 190 : width < 1300 ? 232 : 264;
   const rows = useMemo(
-    () => (width > 0 ? justify(galleryItems, width, target) : []),
-    [width, target],
+    () => (width > 0 ? justify(shown, width, target) : []),
+    [shown, width, target],
   );
 
   const close = () => setActive(null);
   const step = (d: number) =>
-    setActive((a) => (a === null ? a : (a + d + galleryItems.length) % galleryItems.length));
+    setActive((a) => (a === null ? a : (a + d + shown.length) % shown.length));
 
   useEffect(() => {
     if (active === null) return;
@@ -79,9 +92,9 @@ export function HomeGallery() {
       document.body.style.overflow = prev;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  }, [active, shown.length]);
 
-  const current = active === null ? null : galleryItems[active];
+  const current = active === null ? null : shown[active];
   let idx = -1; // running index across rows → maps back to galleryItems order
 
   return (
@@ -130,6 +143,27 @@ export function HomeGallery() {
         ))}
       </div>
 
+      {/* Mobile: reveal the rest of the wall */}
+      {isMobile && hiddenCount > 0 && (
+        <div className="mt-4 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            aria-expanded={expanded}
+            className="inline-flex items-center gap-2 rounded-full border border-border-strong px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-300 active:bg-surface-muted"
+          >
+            {expanded ? (
+              "Show less"
+            ) : (
+              <>
+                <Plus className="size-4 text-accent" />
+                View {hiddenCount} more
+              </>
+            )}
+          </button>
+        </div>
+      )}
+
       {/* Lightbox */}
       <AnimatePresence>
         {current && (
@@ -173,7 +207,7 @@ export function HomeGallery() {
                 <span className="text-sm font-medium text-white">{current.title}</span>
                 <span className="size-1 rounded-full bg-white/30" />
                 <span className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-white/60">{current.tag}</span>
-                <span className="font-mono text-[0.625rem] text-white/40">{active! + 1}/{galleryItems.length}</span>
+                <span className="font-mono text-[0.625rem] text-white/40">{active! + 1}/{shown.length}</span>
               </div>
             </motion.div>
           </motion.div>
