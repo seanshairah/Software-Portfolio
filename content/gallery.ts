@@ -36,10 +36,10 @@ const img = (
 export const galleryItems: GalleryItem[] = [
   img("hz-snack-hero", 1440, 484, "Snack", "Next-level productivity", "Marketing"),
   img("hz-dashboard", 1440, 1244, "Good morning", "Snack · daily home", "Product"),
-  img("hz-showcase", 1600, 988, "Showcase", "Mobile UI", "Mobile"),
+  img("hz-showcase", 2000, 1235, "Showcase", "Mobile UI", "Mobile"),
   img("hz-sidebar", 1200, 675, "Sidebar", "Snack · navigation", "Product"),
   img("hz-widgets", 1440, 1024, "Modular widgets", "Dynamic UI", "Marketing"),
-  img("hz-zimloan", 1600, 1369, "ZimLoan", "Micro-finance app", "Mobile"),
+  img("hz-zimloan", 2000, 1712, "ZimLoan", "Micro-finance app", "Mobile"),
   img("hz-commandbar", 1200, 675, "Command bar", "Snack · keyboard-first", "Product"),
   img("hz-personality-landing", 1440, 1024, "Personality Test", "Landing page", "Marketing"),
   img("hz-inbox-3d", 1358, 734, "Inbox", "Snack · perspective", "Marketing"),
@@ -50,14 +50,14 @@ export const galleryItems: GalleryItem[] = [
   img("hz-nav-walk", 390, 844, "Guided walk", "Navigation · wayfinding", "Mobile"),
   img("hz-snack-card", 1440, 1024, "Snack", "Product card", "Marketing"),
   img("hz-analyzing", 1440, 1024, "Analyzing", "Personality · flow", "Product"),
-  img("hz-icons", 1600, 1043, "Iconography", "Snack · icon system", "Product"),
+  img("hz-icons", 2000, 1304, "Iconography", "Snack · icon system", "Product"),
   img("hz-snack-mobile", 390, 844, "On the go", "Snack · mobile", "Mobile"),
   img("hz-onboarding", 1440, 1024, "Onboarding", "Personality · welcome", "Product"),
   img("hz-inbox", 1566, 1175, "Inbox", "Snack · glass", "Product"),
   img("hz-nav-steps", 477, 916, "Wayfinding", "Navigation · steps", "Mobile"),
   img("hz-assessment", 1440, 1024, "Assessment", "Personality · question", "Product"),
   img("hz-task-actions", 1460, 802, "Task actions", "Snack · mobile menu", "Mobile"),
-  img("hz-someday", 1600, 938, "Someday", "Snack · views", "Product"),
+  img("hz-someday", 1746, 1024, "Someday", "Snack · views", "Product"),
 ];
 
 export const galleryCount = galleryItems.length;
