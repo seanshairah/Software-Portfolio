@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { ArrowUpRight, ArrowDown } from "lucide-react";
 import { motion, useReducedMotion } from "framer-motion";
 import { MaskLines } from "@/components/motion/reveal";
+import { HeroDoodles } from "@/components/sections/hero-doodles";
 import { profile } from "@/content/profile";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -49,7 +50,8 @@ export function HomeHero() {
   });
 
   return (
-    <section className="shell flex min-h-[82svh] flex-col justify-center pt-28 pb-14 md:min-h-[84svh] md:pt-32">
+    <section className="relative isolate shell flex min-h-[82svh] flex-col justify-center overflow-hidden pt-28 pb-14 md:min-h-[84svh] md:pt-32">
+      <HeroDoodles />
       <motion.div {...rise(0)} className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1.5 label">
         <span className="inline-flex items-center gap-2">
           <span className="relative flex size-1.5">
