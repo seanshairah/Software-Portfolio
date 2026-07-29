@@ -15,9 +15,9 @@ export default function Home() {
       <section id="work" className="scroll-mt-24">
         <div className="shell mb-6 flex flex-wrap items-end justify-between gap-3 border-t border-border pt-8">
           <div>
-            <p className="label mb-2">The work</p>
+            <p className="label mb-2">Selected work · Hurudza Thinkpad</p>
             <h2 className="max-w-2xl text-balance text-[clamp(1.4rem,3vw,2rem)] font-medium leading-tight tracking-[-0.02em] text-foreground">
-              Logos and identity, product interfaces, motion — a wall of {galleryCount} pieces.
+              A keyboard-first productivity app and the world around it — {galleryCount} screens of product, mobile and marketing design.
             </h2>
           </div>
           <p className="font-mono text-[0.625rem] uppercase tracking-[0.14em] text-faint">
@@ -34,8 +34,8 @@ export default function Home() {
       {/* Into the products */}
       <section className="shell flex flex-wrap items-center justify-between gap-5 border-t border-border py-10 md:py-14">
         <p className="max-w-md text-pretty leading-relaxed text-muted">
-          That&apos;s the design work. See how it ships as real, working software
-          — the products, the decisions, the outcomes.
+          Beyond this, the systems I&apos;ve shipped for real businesses —
+          logistics, student housing, family care, commercial farming.
         </p>
         <Link
           href="/work"

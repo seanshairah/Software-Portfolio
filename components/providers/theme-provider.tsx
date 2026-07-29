@@ -25,16 +25,13 @@ const STORAGE_KEY = "sm-theme";
  * inline script in <head> (see ThemeScript) to avoid a flash of the wrong theme.
  */
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+  const [theme, setThemeState] = useState<Theme>("dark");
 
   useEffect(() => {
+    // Dark is the primary experience; we only fall back to a stored choice the
+    // visitor made explicitly, otherwise default to dark for the best contrast.
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null;
-    const initial =
-      stored ??
-      (window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light");
-    setThemeState(initial);
+    setThemeState(stored ?? "dark");
   }, []);
 
   const apply = useCallback((next: Theme) => {
@@ -71,6 +68,6 @@ export function useTheme() {
 
 /** Inline, render-blocking script that sets the theme class before paint. */
 export function ThemeScript() {
-  const code = `(function(){try{var k='${STORAGE_KEY}';var s=localStorage.getItem(k);var d=window.matchMedia('(prefers-color-scheme: dark)').matches;var t=s||(d?'dark':'light');if(t==='dark'){document.documentElement.classList.add('dark');}document.documentElement.style.colorScheme=t;}catch(e){}})();`;
+  const code = `(function(){try{var k='${STORAGE_KEY}';var s=localStorage.getItem(k);var t=s||'dark';if(t==='dark'){document.documentElement.classList.add('dark');}document.documentElement.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');document.documentElement.style.colorScheme='dark';}})();`;
   return <script dangerouslySetInnerHTML={{ __html: code }} />;
 }

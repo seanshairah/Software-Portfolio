@@ -116,7 +116,7 @@ export function HomeHero() {
         >
           <ArrowDown className="size-3.5" />
         </motion.span>
-        The work — a wall of design, brand &amp; product
+        The work — Hurudza Thinkpad, in depth
       </motion.a>
     </section>
   );

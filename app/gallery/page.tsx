@@ -15,10 +15,10 @@ export default function GalleryPage() {
   return (
     <>
       <PageHero
-        eyebrow="Gallery"
+        eyebrow="Gallery · Hurudza Thinkpad"
         index="01"
-        titleLines={["Design, brand", "and motion."]}
-        lead={`A working gallery of the visual side — logos and identity, product interfaces and motion. ${galleryCount} selected pieces; tap any to open it full-size.`}
+        titleLines={["Product design,", "end to end."]}
+        lead={`Selected screens from Hurudza Thinkpad — the Snack keyboard-first productivity app, ZimLoan micro-finance, an assistive navigation app, and the marketing around them. ${galleryCount} pieces; tap any to open it full-size.`}
       />
       <GalleryView />
       <ContactCta />
